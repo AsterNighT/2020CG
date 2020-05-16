@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{36A20608-3F78-47EE-A05B-DD1B6A15401D}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectName>2020CG</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\Library\include;$(IncludePath)</IncludePath>
+    <ReferencePath>D:\Library\lib;$(ReferencePath)</ReferencePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>_CONSOLE;NDEBUG;GLEW_STATIC;FREEGLUT_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\work\personal\2020CG\Library;D:\work\personal\2020CG\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>D:\work\personal\2020CG\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;glm.lib;SOIL.lib;zlibstatic.lib;assimp-vc140-mt.lib;Shlwapi.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>_CONSOLE;NDEBUG;GLEW_STATIC;FREEGLUT_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\work\personal\2020CG\Library;D:\work\personal\2020CG\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>D:\work\personal\2020CG\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;glm.lib;SOIL.lib;zlibstatic.lib;assimp-vc140-mt.lib;Shlwapi.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\work\personal\2020CG\Library;D:\work\personal\2020CG\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;GLEW_STATIC;FREEGLUT_STATIC</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>D:\work\personal\2020CG\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;glm.lib;SOIL.lib;zlibstatic.lib;assimp-vc140-mt.lib;Shlwapi.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\work\personal\2020CG\Library;D:\work\personal\2020CG\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;GLEW_STATIC;FREEGLUT_STATIC</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>D:\work\personal\2020CG\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;glm.lib;SOIL.lib;zlibstatic.lib;assimp-vc140-mt.lib;Shlwapi.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="DrawableSceneComponent.cpp" />
+    <ClCompile Include="FrameBuffer.cpp" />
+    <ClCompile Include="FullScreenRenderTarget.cpp" />
+    <ClCompile Include="GLMHelper.cpp" />
+    <ClCompile Include="GLObject.cpp" />
+    <ClCompile Include="GLSLuniform.cpp" />
+    <ClCompile Include="IBO.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Library\Camera.cpp" />
+    <ClCompile Include="Library\ColorHelper.cpp" />
+    <ClCompile Include="Library\SceneModel.cpp" />
+    <ClCompile Include="Library\ShadePass.cpp" />
+    <ClCompile Include="Library\Material.cpp" />
+    <ClCompile Include="Library\Mesh.cpp" />
+    <ClCompile Include="Library\Model.cpp" />
+    <ClCompile Include="Library\ModelMaterial.cpp" />
+    <ClCompile Include="library\Scene.cpp" />
+    <ClCompile Include="Library\Utility.cpp" />
+    <ClCompile Include="library\utility\Window.cpp" />
+    <ClCompile Include="Library\Variable.cpp" />
+    <ClCompile Include="library\VBO.cpp" />
+    <ClCompile Include="library\VectorHelper.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MSAAShader.cpp" />
+    <ClCompile Include="Render.cpp" />
+    <ClCompile Include="RenderTexture.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TexturePack.cpp" />
+    <ClCompile Include="triangle.cpp" />
+    <ClCompile Include="VAO.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Attribute.h" />
+    <ClInclude Include="ColorShader.h" />
+    <ClInclude Include="DrawableSceneComponent.h" />
+    <ClInclude Include="FrameBuffer.h" />
+    <ClInclude Include="FullScreenRenderTarget.h" />
+    <ClInclude Include="GLMHelper.h" />
+    <ClInclude Include="GLObject.h" />
+    <ClInclude Include="GLSLuniform.h" />
+    <ClInclude Include="IBO.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Library\Camera.h" />
+    <ClInclude Include="Library\ColorHelper.h" />
+    <ClInclude Include="Library\SceneModel.h" />
+    <ClInclude Include="Library\ShadePass.h" />
+    <ClInclude Include="Library\Material.h" />
+    <ClInclude Include="Library\Mesh.h" />
+    <ClInclude Include="Library\Model.h" />
+    <ClInclude Include="Library\ModelMaterial.h" />
+    <ClInclude Include="library\Scene.h" />
+    <ClInclude Include="Library\Utility.h" />
+    <ClInclude Include="library\utility\Window.h" />
+    <ClInclude Include="Library\Variable.h" />
+    <ClInclude Include="library\VBO.h" />
+    <ClInclude Include="Library\VectorHelper.h" />
+    <ClInclude Include="Library\VertexDeclarations.h" />
+    <ClInclude Include="MSAAShader.h" />
+    <ClInclude Include="Render.h" />
+    <ClInclude Include="RenderTexture.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="TexturePack.h" />
+    <ClInclude Include="triangle.h" />
+    <ClInclude Include="VAO.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader\color0.frag" />
+    <None Include="shader\color0.vert" />
+    <None Include="shader\final.frag" />
+    <None Include="shader\final.vert" />
+    <None Include="shader\sample.frag" />
+    <None Include="shader\sample.vert" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
