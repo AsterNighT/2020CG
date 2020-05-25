@@ -1,14 +1,21 @@
 #include "Item.h"
 
-void Item::draw(){
-	vertexArray->bind();
-	shader->configurate();
-	material->configurate();
-	indexBuffer->bind();
-	glDrawElements(
-		GL_TRIANGLES,      // mode
-		material->getVertexCount(),    // count
-		GL_UNSIGNED_INT,   // type
-		(void*)0           // element array buffer offset
-	);
+Item::Item() {
+	texture = nullptr;
+	mesh = nullptr;
+	worldMatrix = glm::identity<mat4>();
+}
+
+void Item::draw() {
+	if (texture != nullptr) texture->bind();
+	mesh->bind();
+	if (mesh->FaceCount() != 0) {
+		glDrawElements(GL_TRIANGLES, mesh->Vertices().size(), GL_UNSIGNED_INT, 0);
+	} else {
+		glDrawArrays(GL_TRIANGLES, 0, mesh->Vertices().size());
+	}
+}
+
+void Item::configurate(ShadePass* shadePass) {
+	*(*shadePass)[std::string("WorldMatrix")] << worldMatrix;
 }

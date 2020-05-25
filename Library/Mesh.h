@@ -3,6 +3,7 @@
 #include "Common.h"
 #include "VBO.h"
 #include "../IBO.h"
+#include "../VAO.h"
 
 struct aiMesh;
 
@@ -15,8 +16,6 @@ class Mesh {
 public:
 	~Mesh();
 
-	Model& GetModel();
-	ModelMaterial* GetMaterial();
 	const std::string& Name() const;
 
 	const std::vector<vec3>& Vertices() const;
@@ -35,14 +34,13 @@ public:
 	bool HasCachedIndexBuffer() const;
 
 	void CreateIndexBuffer();
+	void CreateVertexBuffer();
+
+	void bind();
 
 private:
-	Mesh(Model& model, aiMesh& mesh, const std::string& tangentFileName = "");
-	Mesh(const Mesh& rhs);
-	Mesh& operator=(const Mesh& rhs);
+	Mesh(aiMesh& mesh);
 
-	Model& mModel;
-	ModelMaterial* mMaterial;
 	std::string mName;
 	std::vector<vec3> mVertices;
 	std::vector<vec3> mNormals;
@@ -58,6 +56,7 @@ private:
 
 	VBO mVertexBuffer;
 	IBO mIndexBuffer;
-
-	bool HasBoneFlag;
+	VAO mVertexArray;
+	bool indexBufferCached;
+	bool vertexBufferCached;
 };

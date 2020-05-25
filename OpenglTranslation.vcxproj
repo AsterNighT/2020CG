@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ColorShadePass.cpp" />
     <ClCompile Include="DrawableSceneComponent.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="FullScreenRenderTarget.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="library\VBO.cpp" />
     <ClCompile Include="library\VectorHelper.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="MSAAShader.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="RenderTexture.cpp" />
@@ -162,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Attribute.h" />
+    <ClInclude Include="ColorShadePass.h" />
     <ClInclude Include="ColorShader.h" />
     <ClInclude Include="DrawableSceneComponent.h" />
     <ClInclude Include="FrameBuffer.h" />
@@ -186,6 +189,7 @@
     <ClInclude Include="library\VBO.h" />
     <ClInclude Include="Library\VectorHelper.h" />
     <ClInclude Include="Library\VertexDeclarations.h" />
+    <ClInclude Include="MainScene.h" />
     <ClInclude Include="MSAAShader.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="RenderTexture.h" />
@@ -199,8 +203,6 @@
   <ItemGroup>
     <None Include="shader\color0.frag" />
     <None Include="shader\color0.vert" />
-    <None Include="shader\final.frag" />
-    <None Include="shader\final.vert" />
     <None Include="shader\sample.frag" />
     <None Include="shader\sample.vert" />
   </ItemGroup>

@@ -102,7 +102,7 @@ void Camera::SetLookAt(FLOAT x, FLOAT y, FLOAT z) {
 }
 
 void Camera::SetFOV(float fov) {
-	mFieldOfView = fov;
+	mFieldOfView = glm::radians(fov);
 	UpdateProjectionMatrix();
 }
 

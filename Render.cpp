@@ -1,5 +1,7 @@
 #include "Render.h"
 #include <fstream>
+
+#include "MainScene.h"
 #include "Utility.h"
 
 class Texture;
@@ -28,12 +30,12 @@ void Render::initialize() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	this->camera = new Camera(this);
 	camera->Initialize();
-	camera->SetPosition(144.23f, 63.84f, 61.74f);
-	camera->SetLookAt(128.56, 56.09, 54.13);
-	camera->SetFOV(32);
+	camera->SetPosition(4, 4, 4);
+	camera->SetLookAt(0, 0, 0);
+	camera->SetFOV(45);
 	camera->UpdateViewMatrix();
-	//scene = new Gabardine(camera,width,height);
-	//scene->initialize();
+	scene = new MainScene(camera,width,height);
+	scene->initialize();
 }
 
 float Render::aspectRatio() const{

@@ -11,7 +11,7 @@ Model::Model(Scene& bScene, const std::string& filename, bool flipUVs, const std
 
 	UINT flags;
 
-	flags = aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType | aiProcess_FlipWindingOrder | aiProcess_CalcTangentSpace;
+	flags = aiProcess_Triangulate | aiProcess_ValidateDataStructure | aiProcess_FixInfacingNormals | aiProcess_GenNormals | aiProcess_JoinIdenticalVertices | aiProcess_PreTransformVertices | aiProcess_GenUVCoords | aiProcess_TransformUVCoords | aiProcess_CalcTangentSpace;
 
 	if (flipUVs) {
 		flags |= aiProcess_FlipUVs;
@@ -28,10 +28,7 @@ Model::Model(Scene& bScene, const std::string& filename, bool flipUVs, const std
 	if (scene->HasMeshes()) {
 		for (UINT i = 0; i < scene->mNumMeshes; i++) {
 			Mesh* mesh;
-			if (!tangentFileName.empty())
-				mesh = new Mesh(*this, *(scene->mMeshes[i]), tangentFileName);
-			else
-				mesh = new Mesh(*this, *(scene->mMeshes[i]));
+			mesh = new Mesh(*(scene->mMeshes[i]));
 			mMeshes.push_back(mesh);
 		}
 	}
@@ -61,4 +58,29 @@ const std::vector<Mesh*>& Model::Meshes() const {
 
 const std::vector<ModelMaterial*>& Model::Materials() const {
 	return mMaterials;
+}
+
+std::vector<Item*> Model::loadModel(const std::string& filename, bool flipUVs){
+	Assimp::Importer importer;
+
+	UINT flags;
+
+	flags = aiProcess_Triangulate | aiProcess_ValidateDataStructure | aiProcess_FixInfacingNormals | aiProcess_GenNormals | aiProcess_JoinIdenticalVertices | aiProcess_PreTransformVertices | aiProcess_GenUVCoords | aiProcess_TransformUVCoords | aiProcess_CalcTangentSpace;
+
+	if (flipUVs) {
+		flags |= aiProcess_FlipUVs;
+	}
+
+	const aiScene* scene = importer.ReadFile(filename, flags);
+	std::vector<Item*> data;
+	if (scene->HasMeshes()) {
+		for (UINT i = 0; i < scene->mNumMeshes; i++) {
+			Mesh* mesh;
+			mesh = new Mesh(*(scene->mMeshes[i]));
+			auto item = new Item();
+			item->mesh = mesh;
+			data.emplace_back(item);
+		}
+	}
+	return data;
 }

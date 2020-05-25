@@ -3,6 +3,8 @@
 #include "ModelMaterial.h"
 #include <Scene.h>
 #include "Mesh.h"
+#include "../Item.h"
+class Item;
 class Scene;
 class Model {
 	friend class Mesh;
@@ -18,6 +20,7 @@ public:
 
 	const std::vector<Mesh*>& Meshes() const;
 	const std::vector<ModelMaterial*>& Materials() const;
+	static std::vector<Item*> loadModel(const std::string& filename, bool flipUVs = false);
 
 private:
 	Model(const Model& rhs);

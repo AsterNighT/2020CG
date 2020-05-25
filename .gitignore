@@ -1,8 +1,7 @@
 .idea
 cmake-build-debug
 **/*.exe
-**/*.lib
-**/*.obj
+Debug/**/*.obj
 .vs
 Debug
 

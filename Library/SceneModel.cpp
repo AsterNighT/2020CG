@@ -74,10 +74,5 @@ void SceneModel::InitializeModelData(Model* model, Material* mat, bool isTess, b
 		mModelIndexCountVector[i] = mesh->Indices().size();
 
 		mModelMaterialVector.push_back(mat);
-
-		mModelDiffuseColorVetor.push_back(model->Meshes().at(i)->GetMaterial()->GetDiffuseColor());
-		mModelSpecularColorVetor.push_back(model->Meshes().at(i)->GetMaterial()->GetSpecularColor());
-		mModelAmbientColorVetor.push_back(model->Meshes().at(i)->GetMaterial()->GetAmbientColor());
-		mModelSpecularPowerVetor.push_back(model->Meshes().at(i)->GetMaterial()->GetNs());
 	}
 }
