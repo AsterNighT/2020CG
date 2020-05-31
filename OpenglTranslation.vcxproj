@@ -153,6 +153,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="MSAAShader.cpp" />
+    <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="RenderTexture.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="Library\VertexDeclarations.h" />
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="MSAAShader.h" />
+    <ClInclude Include="PointLight.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="RenderTexture.h" />
     <ClInclude Include="Shader.h" />
