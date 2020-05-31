@@ -41,7 +41,7 @@ void MainScene::initialize() {
 				   }
 	};
 	auto item = new Item();
-	item->mesh = new Mesh(srf);
+	item->mesh = new Mesh(srf,0.2,0.2);
 	item->worldMatrix = glm::translate(glm::identity<mat4>(),vec3(2, 2, 2));
 	items.emplace_back(item);
 }
