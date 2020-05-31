@@ -30,7 +30,7 @@ void Render::initialize() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	this->camera = new Camera(this);
 	camera->Initialize();
-	camera->SetPosition(4, 4, 4);
+	camera->SetPosition(5,3,3);
 	camera->SetLookAt(0, 0, 0);
 	camera->SetFOV(45);
 	camera->UpdateViewMatrix();

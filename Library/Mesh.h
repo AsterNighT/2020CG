@@ -4,6 +4,7 @@
 #include "VBO.h"
 #include "../IBO.h"
 #include "../VAO.h"
+#include "tinynurbs/tinynurbs.h"
 
 struct aiMesh;
 
@@ -15,7 +16,7 @@ class Mesh {
 
 public:
 	~Mesh();
-
+	Mesh(tinynurbs::RationalSurface3f nurbs,float stepU = 0.01,float stepV = 0.01);
 	const std::string& Name() const;
 
 	const std::vector<vec3>& Vertices() const;

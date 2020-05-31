@@ -11,7 +11,7 @@
 
 void Mesh::bind() {
 	mVertexArray.bind();
-	if (!indexBufferCached && FaceCount() != 0) {
+	if (!indexBufferCached && !mIndices.empty()) {
 		CreateIndexBuffer();
 		mIndexBuffer.bind();
 		indexBufferCached = true;
@@ -106,6 +106,38 @@ Mesh::~Mesh() {
 	}
 }
 
+#define calcCord(x,y) (x)*sizeU+(y)
+Mesh::Mesh(tinynurbs::RationalSurface3f nurbs, float stepU, float stepV) :mVertices(), mNormals(), mTangents(), mBiNormals(), mTextureCoordinates(), mVertexColors(),
+mFaceCount(0), mIndices(), mVertexBuffer(), mIndexBuffer() {
+	indexBufferCached = false;
+	vertexBufferCached = false;
+	int sizeU = 1 / stepU + 1;
+	int sizeV = 1 / stepV + 1;
+	std::vector<vec3>* textureCoordinates = new std::vector<vec3>();
+	for (int i = 0; i < sizeU; i++) {
+		for (int j = 0; j < sizeV; j++) {
+			mVertices.push_back(tinynurbs::surfacePoint(nurbs, i * stepU, j * stepV));
+			vec3 p = tinynurbs::surfacePoint(nurbs, i * stepU, j * stepV);
+			//std::cout << '(' << p.x << ' ' << p.y << ' ' << p.z << ')';
+			mNormals.push_back(tinynurbs::surfaceNormal(nurbs, i * stepU, j * stepV));
+			textureCoordinates->push_back(vec3(i * stepU, j * stepV, 0));
+		}
+		//std::cout << std::endl;
+	}
+	mTextureCoordinates.push_back(textureCoordinates);
+	for (int i = 0; i < sizeU - 1; i++) {
+		for (int j = 0; j < sizeV - 1; j++) {
+			mIndices.push_back(calcCord(i, j));
+			mIndices.push_back(calcCord(i + 1, j));
+			mIndices.push_back(calcCord(i + 1, j + 1));
+			mIndices.push_back(calcCord(i + 1, j + 1));
+			mIndices.push_back(calcCord(i, j + 1));
+			mIndices.push_back(calcCord(i, j));
+		}
+	}
+
+}
+
 const std::string& Mesh::Name() const {
 	return mName;
 }
@@ -175,8 +207,6 @@ void Mesh::CreateVertexBuffer() {
 	}
 	const std::vector<vec3>& normals = Normals();
 	assert(normals.size() == sourceVertices.size());
-	const std::vector<vec3>& tangents = Tangents();
-	assert(tangents.size() == sourceVertices.size());
 
 	std::vector<VertexPositionTextureNormal> vertices;
 	vertices.reserve(sourceVertices.size());
