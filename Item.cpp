@@ -10,7 +10,7 @@ void Item::draw() {
 	if (texture != nullptr) texture->bind();
 	mesh->bind();
 	if (!mesh->Indices().empty()) {
-		glDrawElements(GL_TRIANGLES, mesh->Vertices().size(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, mesh->Indices().size(), GL_UNSIGNED_INT, 0);
 	} else {
 		glDrawArrays(GL_TRIANGLES, 0, mesh->Vertices().size());
 	}
