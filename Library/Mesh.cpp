@@ -119,7 +119,7 @@ mFaceCount(0), mIndices(), mVertexBuffer(), mIndexBuffer() {
 			mVertices.push_back(tinynurbs::surfacePoint(nurbs, i * stepU, j * stepV));
 			vec3 p = tinynurbs::surfacePoint(nurbs, i * stepU, j * stepV);
 			//std::cout << '(' << p.x << ' ' << p.y << ' ' << p.z << ')';
-			mNormals.push_back(tinynurbs::surfaceNormal(nurbs, i * stepU, j * stepV));
+			mNormals.push_back(-tinynurbs::surfaceNormal(nurbs, i * stepU, j * stepV));
 			textureCoordinates->push_back(vec3(i * stepU, j * stepV, 0));
 		}
 		//std::cout << std::endl;

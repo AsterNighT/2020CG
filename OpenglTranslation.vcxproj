@@ -158,6 +158,7 @@
     <ClCompile Include="RenderTexture.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="ShadowShadePass.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TexturePack.cpp" />
     <ClCompile Include="triangle.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="RenderTexture.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="ShadowShadePass.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TexturePack.h" />
     <ClInclude Include="triangle.h" />
@@ -205,8 +207,8 @@
   <ItemGroup>
     <None Include="shader\color0.frag" />
     <None Include="shader\color0.vert" />
-    <None Include="shader\sample.frag" />
-    <None Include="shader\sample.vert" />
+    <None Include="shader\depth0.frag" />
+    <None Include="shader\depth0.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

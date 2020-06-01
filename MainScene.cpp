@@ -5,8 +5,19 @@ MainScene::MainScene(Camera* camera, int width, int height) :Scene(width, height
 }
 
 void MainScene::draw() {
+	shadowShader.GetShader()->bind();
+	shadowShader.configurate();
+	light.configurateDepth(&shadowShader);
+	for (auto item : items) {
+		item->configurateDepth(&shadowShader);
+		item->drawDepth();
+	}
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glViewport(0, 0, width, height);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	colorShader.GetShader()->bind();
 	colorShader.configurate();
+	light.configurate(&colorShader);
 	for (auto item : items) {
 		item->configurate(&colorShader);
 		item->draw();
@@ -16,6 +27,12 @@ void MainScene::draw() {
 void MainScene::initialize() {
 	colorShader.CompileFromFile("shader/color0");
 	colorShader.initialize();
+	shadowShader.CompileFromFile("shader/depth0");
+	shadowShader.initialize();
+	light.initialize(&colorShader);
+	light.position = vec3(0, 1, 3);
+	light.color = vec3(1, 1, 1);
+	light.target = vec3(0, 0, 0);
 	auto t = Model::loadModel("obj/cube.obj");
 	t.at(0)->name = "cube1";
 	//items.insert(items.end(), t.begin(), t.end());
@@ -41,7 +58,10 @@ void MainScene::initialize() {
 				   }
 	};
 	auto item = new Item();
-	item->mesh = new Mesh(srf,0.2,0.2);
-	item->worldMatrix = glm::translate(glm::identity<mat4>(),vec3(2, 2, 2));
+	item->mesh = new Mesh(srf);
+	item->texture = new Texture(colorShader.GetShader(), "asset/meya.jpg", "colorTexture", 0);
+	items.emplace_back(item);
+	item = Model::loadModel("obj/plane.obj").at(0);
+	item->texture = new Texture(colorShader.GetShader(), "asset/floor.jpg", "colorTexture", 0);
 	items.emplace_back(item);
 }

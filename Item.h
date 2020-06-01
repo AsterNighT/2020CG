@@ -11,6 +11,8 @@ public:
 	Mesh* mesh;
 	glm::mat4 worldMatrix;
 	void draw();
+	void drawDepth();
 	void configurate(ShadePass* shadePass);
+	void configurateDepth(ShadePass* shadePass);
 };
 

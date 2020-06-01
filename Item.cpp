@@ -16,6 +16,21 @@ void Item::draw() {
 	}
 }
 
+void Item::drawDepth() {
+	mesh->bind();
+	if (!mesh->Indices().empty()) {
+		glDrawElements(GL_TRIANGLES, mesh->Indices().size(), GL_UNSIGNED_INT, 0);
+	} else {
+		glDrawArrays(GL_TRIANGLES, 0, mesh->Vertices().size());
+	}
+}
+
 void Item::configurate(ShadePass* shadePass) {
-	*(*shadePass)[std::string("WorldMatrix")] << worldMatrix;
+	*(*shadePass)[std::string("worldMatrix")] << worldMatrix;
+	*(*shadePass)[std::string("ambientPower")] << 0.1f;
+	*(*shadePass)[std::string("specPower")] << 1.0f;
+}
+
+void Item::configurateDepth(ShadePass* shadePass) {
+	*(*shadePass)[std::string("worldMatrix")] << worldMatrix;
 }

@@ -2,7 +2,10 @@
 
 #include "Camera.h"
 #include "ColorShadePass.h"
+#include "PointLight.h"
 #include "Scene.h"
+#include "ShadowShadePass.h"
+class PointLight;
 class MainScene :
 	public Scene {
 public:
@@ -11,6 +14,8 @@ public:
 	void initialize() override;
 private:
 	Camera* camera;
+	PointLight light;
+	ShadowShadePass shadowShader;
 	ColorShadePass colorShader;
 	std::vector<Item*> items;
 };

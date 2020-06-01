@@ -126,8 +126,11 @@
     <ClCompile Include="MainScene.cpp">
       <Filter>Source Files\Program</Filter>
     </ClCompile>
+    <ClCompile Include="ShadowShadePass.cpp">
+      <Filter>Source Files\Program</Filter>
+    </ClCompile>
     <ClCompile Include="PointLight.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Library</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -242,18 +245,21 @@
     <ClInclude Include="PointLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ShadowShadePass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shader\sample.frag">
-      <Filter>Source Files\shader</Filter>
-    </None>
-    <None Include="shader\sample.vert">
-      <Filter>Source Files\shader</Filter>
-    </None>
     <None Include="shader\color0.frag">
       <Filter>Source Files\shader</Filter>
     </None>
     <None Include="shader\color0.vert">
+      <Filter>Source Files\shader</Filter>
+    </None>
+    <None Include="shader\depth0.frag">
+      <Filter>Source Files\shader</Filter>
+    </None>
+    <None Include="shader\depth0.vert">
       <Filter>Source Files\shader</Filter>
     </None>
   </ItemGroup>

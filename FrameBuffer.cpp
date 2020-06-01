@@ -24,11 +24,35 @@ void FrameBuffer::bind() {
 }
 
 GLboolean FrameBuffer::checkStatus() {
-	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
-		return false;
+	GLuint st = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+	switch (st) {
+	case GL_FRAMEBUFFER_COMPLETE:
+		std::cout << "GL_FRAMEBUFFER_COMPLETE" << std::endl;
+		return true;
+		break;
+	case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT:
+		std::cout << "GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT" << std::endl;
+		break;
+	case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT:
+		std::cout << "GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT" << std::endl;
+		break;
+	case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER:
+		std::cout << "GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER" << std::endl;
+		break;
+	case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER:
+		std::cout << "GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER" << std::endl;
+		break;
+	case GL_FRAMEBUFFER_UNSUPPORTED:
+		std::cout << "GL_FRAMEBUFFER_UNSUPPORTED" << std::endl;
+		break;
+	case GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE:
+		std::cout << "GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE" << std::endl;
+		break;
+	case GL_FRAMEBUFFER_UNDEFINED:
+		std::cout << "GL_FRAMEBUFFER_UNDEFINED" << std::endl;
+		break;
 	}
-	return true;
+	return false;
 }
 
 RenderTexture* FrameBuffer::getColorBuffer() {
