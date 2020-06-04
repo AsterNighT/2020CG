@@ -14,7 +14,7 @@ void VBO::bind() {
 	//glEnableVertexAttribArray(0);
 }
 
-void VBO::setData(GLsizeiptr size, void* source, GLenum usage) {
+void VBO::setData(GLsizei size, void* source, GLenum usage) {
 	this->bind();
 	glBufferData(GL_ARRAY_BUFFER, size, source, usage);
 }
