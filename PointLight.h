@@ -8,6 +8,7 @@ public:
 	vec3 position;
 	vec3 color;
 	vec3 target;
+	float strength; //1 for weakest, no upper limit
 	void configurate(ShadePass* shadePass);
 	void configurateDepth(ShadePass* depthShader);
 	void initialize(ShadePass* colorShader);
@@ -16,4 +17,3 @@ private:
 	Texture depthMap;
 	FrameBuffer depthMapFBO;
 };
-

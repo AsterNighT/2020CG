@@ -18,7 +18,7 @@ void ColorShadePass::configurate(){
 }
 
 void ColorShadePass::initialize(){
-	std::vector<std::string> names = { "viewProjectionMatrix", "worldMatrix","lightSpaceMatrix","lightCount","lightPos","lightColor","cameraPos","specPower","ambientPower"};
+	std::vector<std::string> names = { "viewProjectionMatrix", "worldMatrix","lightSpaceMatrix","lightCount","lightPos","lightColor","lightStrength","cameraPos","specPower","ambientPower"};
 	for (const std::string& name : names) {
 		Variable* variable = new Variable(*this, name);
 		mVariables.push_back(variable);

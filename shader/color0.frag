@@ -14,12 +14,13 @@ layout(location = 0) out vec4 finalColor;
 
 layout (location = 3) uniform vec3 lightPos;
 layout (location = 4) uniform vec3 lightColor;
-layout (location = 5) uniform vec3 cameraPos;
-layout (location = 6) uniform float specPower;
-layout (location = 7) uniform float ambientPower;
+layout (location = 5) uniform float lightStrength;
+layout (location = 6) uniform vec3 cameraPos;
+layout (location = 7) uniform float specPower;
+layout (location = 8) uniform float ambientPower;
 
-layout (location = 8) uniform sampler2D colorTexture;
-layout (location = 9) uniform sampler2D shadowMap;
+layout (location = 9) uniform sampler2D colorTexture;
+layout (location = 10) uniform sampler2D shadowMap;
 
 /************* Pixel Shader *************/
 float calcShadow(){
@@ -46,7 +47,7 @@ float calcShadow(){
 vec3 calcPhongColor(){
 	vec3 lightVec = lightPos - IN.WorldPos.xyz;
 	vec3 viewVec = cameraPos - IN.WorldPos.xyz;
-	float strength = 1;///length(lightVec);
+	float strength = lightStrength/length(lightVec);///length(lightVec);
 	lightVec = normalize(lightVec);
 	viewVec = normalize(viewVec);
 	vec3 reflectVec = reflect(-lightVec, IN.WorldNormal);

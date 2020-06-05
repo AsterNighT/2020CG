@@ -1,6 +1,7 @@
 #include "PointLight.h"
 
 PointLight::PointLight() :depthMap(1024, 1024), depthMapFBO(1024, 1024) {
+	strength = 1;
 }
 
 void PointLight::configurate(ShadePass* shadePass) {
@@ -8,6 +9,7 @@ void PointLight::configurate(ShadePass* shadePass) {
 	glDrawBuffer(GL_BACK);
 	glReadBuffer(GL_BACK);
 	*(*shadePass)[std::string("lightPos")] << position;
+	*(*shadePass)[std::string("lightStrength")] << strength;
 	*(*shadePass)[std::string("lightColor")] << color;
 	*(*shadePass)[std::string("lightSpaceMatrix")] << getViewProjectionMatrix();
 }
