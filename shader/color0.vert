@@ -1,4 +1,4 @@
-#version 460 core
+#version 440 core
 #define MAX_LIGHT_COUNT
 
 layout (location = 0) in vec4 ObjectPosition;

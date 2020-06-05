@@ -1,4 +1,4 @@
-#version 460 core
+#version 440 core
 #define PI 3.14159265f
 #define MAX_LIGHT_COUNT
 
