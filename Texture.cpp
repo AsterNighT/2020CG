@@ -15,6 +15,7 @@ Texture::Texture(ShaderProgram* shader, const char* path, const std::string& nam
 	initialize(shader, name, unit);
 	unsigned char* image = SOIL_load_image(path, &this->width, &this->height, 0, SOIL_LOAD_RGB);
 	glBindTexture(GL_TEXTURE_2D, id);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(image);
@@ -61,6 +62,7 @@ void Texture::initialize(ShaderProgram* shader, const std::string& name, GLint u
 
 void Texture::loadImage(GLenum type, GLint mipmapLevel, GLenum loadStruct, GLenum loadType, const void* content) {
 	glBindTexture(GL_TEXTURE_2D, id);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	this->type = type;
 	switch (type) {
 	case GL_DEPTH24_STENCIL8:

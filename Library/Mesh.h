@@ -33,14 +33,15 @@ public:
 
 	bool HasCachedVertexBuffer() const;
 	bool HasCachedIndexBuffer() const;
-
+	bool HasTexCoord();
 	void CreateIndexBuffer();
 	void CreateVertexBuffer();
 
 	void bind();
-
+	static Mesh* createPrism();
 private:
 	Mesh(aiMesh& mesh);
+	Mesh();
 
 	std::string mName;
 	std::vector<vec3> mVertices;
@@ -60,4 +61,5 @@ private:
 	VAO mVertexArray;
 	bool indexBufferCached;
 	bool vertexBufferCached;
+	bool hasTexCoord;
 };

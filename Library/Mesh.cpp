@@ -23,6 +23,41 @@ void Mesh::bind() {
 	}
 }
 
+Mesh* Mesh::createPrism() {
+	std::vector<vec3>* textureCoordinates = new std::vector<vec3>();
+	auto* mesh = new Mesh();
+	mesh->mTextureCoordinates.push_back(textureCoordinates);
+	mesh->mVertices.emplace_back(vec3(0, 0, 0));
+	textureCoordinates->emplace_back(vec3(0,0,0));
+	mesh->mVertices.emplace_back(vec3(1, 0, 0));
+	textureCoordinates->emplace_back(vec3(1, 0, 0));
+	mesh->mVertices.emplace_back(vec3(1, 1, 0));
+	textureCoordinates->emplace_back(vec3(1, 1, 0));
+	for (int i = 0; i < 3; i++) mesh->mNormals.emplace_back((vec3(0, 0, -1)));
+	mesh->mVertices.emplace_back(vec3(0, 0, 0));
+	textureCoordinates->emplace_back(vec3(0, 0, 0));
+	mesh->mVertices.emplace_back(vec3(1, 0, 0));
+	textureCoordinates->emplace_back(vec3(1, 0, 0));
+	mesh->mVertices.emplace_back(vec3(1, 0, 1));
+	textureCoordinates->emplace_back(vec3(1, 1, 0));
+	for (int i = 0; i < 3; i++) mesh->mNormals.emplace_back((vec3(0, -1, 0)));
+	mesh->mVertices.emplace_back(vec3(1, 0, 0));
+	textureCoordinates->emplace_back(vec3(0, 0, 0));
+	mesh->mVertices.emplace_back(vec3(1, 1, 0));
+	textureCoordinates->emplace_back(vec3(1, 0, 0));
+	mesh->mVertices.emplace_back(vec3(1, 0, 1));
+	textureCoordinates->emplace_back(vec3(0, 1, 0));
+	for (int i = 0; i < 3; i++) mesh->mNormals.emplace_back((vec3(1, 0, 0)));
+	mesh->mVertices.emplace_back(vec3(0, 0, 0));
+	textureCoordinates->emplace_back(vec3(0, 0, 0));
+	mesh->mVertices.emplace_back(vec3(1, 1, 0));
+	textureCoordinates->emplace_back(vec3(0, 1, 0));
+	mesh->mVertices.emplace_back(vec3(1, 0, 1));
+	textureCoordinates->emplace_back(vec3(1, 1, 0));
+	for (int i = 0; i < 3; i++) mesh->mNormals.emplace_back(normalize(vec3(-1, 1, 1)));
+	return mesh;
+}
+
 Mesh::Mesh(aiMesh& mesh)
 	: mName(mesh.mName.C_Str()), mVertices(), mNormals(), mTangents(), mBiNormals(), mTextureCoordinates(), mVertexColors(),
 	mFaceCount(0), mIndices(), mVertexBuffer(), mIndexBuffer() {
@@ -94,6 +129,11 @@ Mesh::Mesh(aiMesh& mesh)
 			}
 		}
 	}
+}
+
+Mesh::Mesh() {
+	indexBufferCached = false;
+	vertexBufferCached = false;
 }
 
 Mesh::~Mesh() {
@@ -194,6 +234,10 @@ bool Mesh::HasCachedIndexBuffer() const {
 	return true;
 }
 
+bool Mesh::HasTexCoord() {
+	return hasTexCoord;
+}
+
 void Mesh::CreateIndexBuffer() {
 	mIndexBuffer.setData(sizeof(UINT) * mIndices.size(), &mIndices[0], GL_STATIC_DRAW);
 }
@@ -202,8 +246,11 @@ void Mesh::CreateVertexBuffer() {
 	const std::vector<vec3>& sourceVertices = Vertices();
 	std::vector<vec3>* textureCoordinates = nullptr;
 	if (TextureCoordinates().size() > 0) {
+		hasTexCoord = true;
 		textureCoordinates = TextureCoordinates().at(0);
 		assert(textureCoordinates->size() == sourceVertices.size());
+	} else {
+		hasTexCoord = false;
 	}
 	const std::vector<vec3>& normals = Normals();
 	assert(normals.size() == sourceVertices.size());

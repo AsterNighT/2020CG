@@ -33,6 +33,7 @@ void MainScene::initialize() {
 	light.position = vec3(0, 1, 3);
 	light.color = vec3(1, 1, 1);
 	light.target = vec3(0, 0, 0);
+	light.strength = 100;
 	auto t = Model::loadModel("obj/cube.obj");
 	t.at(0)->name = "cube1";
 	//items.insert(items.end(), t.begin(), t.end());
@@ -64,4 +65,21 @@ void MainScene::initialize() {
 	item = Model::loadModel("obj/plane.obj").at(0);
 	item->texture = new Texture(colorShader.GetShader(), "asset/floor.jpg", "colorTexture", 0);
 	items.emplace_back(item);
+	item = new Item();
+	item->mesh = Mesh::createPrism();
+	item->texture = new Texture(colorShader.GetShader(), "asset/floor.jpg", "colorTexture", 0);
+	items.emplace_back(item);
+	toObjFile();
+}
+
+std::string MainScene::toObjFile() {
+	std::string s;
+	int texCount = 0;
+	int vertCount = 0;
+	int normalCount = 0;
+	for (auto& item : items) {
+		s+=item->toObjFile(vertCount,texCount,normalCount);
+	}
+	std::cout << s << std::endl;
+	return s;
 }

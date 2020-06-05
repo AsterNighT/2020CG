@@ -12,6 +12,7 @@ public:
 	MainScene(Camera* camera, int width, int height);
 	void draw() override;
 	void initialize() override;
+	std::string toObjFile();
 private:
 	Camera* camera;
 	PointLight light;

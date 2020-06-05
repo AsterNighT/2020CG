@@ -14,5 +14,6 @@ public:
 	void drawDepth();
 	void configurate(ShadePass* shadePass);
 	void configurateDepth(ShadePass* shadePass);
+	std::string toObjFile(int &vertCount,int &texCoordCount, int& normalCount);
 };
 
