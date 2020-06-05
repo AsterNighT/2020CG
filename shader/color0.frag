@@ -47,7 +47,7 @@ float calcShadow(){
 vec3 calcPhongColor(){
 	vec3 lightVec = lightPos - IN.WorldPos.xyz;
 	vec3 viewVec = cameraPos - IN.WorldPos.xyz;
-	float strength = lightStrength/length(lightVec);///length(lightVec);
+	float strength = min(1,lightStrength/length(lightVec));///length(lightVec);
 	lightVec = normalize(lightVec);
 	viewVec = normalize(viewVec);
 	vec3 reflectVec = reflect(-lightVec, IN.WorldNormal);
