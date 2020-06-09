@@ -7,11 +7,11 @@ Texture::Texture(int width, int height) {
 	this->height = height;
 	this->type = 0;
 	this->unit = GL_NONE;
-	glCreateTextures(GL_TEXTURE_2D, 1, &id);
+	glGenTextures(1, &id);
 }
 
 Texture::Texture(ShaderProgram* shader, const char* path, const std::string& name, GLint unit) {
-	glCreateTextures(GL_TEXTURE_2D, 1, &id);
+	glGenTextures(1, &id);
 	initialize(shader, name, unit);
 	unsigned char* image = SOIL_load_image(path, &this->width, &this->height, 0, SOIL_LOAD_RGB);
 	glBindTexture(GL_TEXTURE_2D, id);

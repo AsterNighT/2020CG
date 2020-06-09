@@ -5,7 +5,7 @@ RenderTexture::RenderTexture(int width, int height) {
 	this->width = width;
 	this->height = height;
 	this->type = 0;
-	glCreateTextures(GL_TEXTURE_2D, 1, &id);
+	glGenTextures(1, &id);
 }
 
 void RenderTexture::bind() const {

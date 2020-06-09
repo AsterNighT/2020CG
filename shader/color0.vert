@@ -14,7 +14,7 @@ layout (location = 2) uniform mat4 lightSpaceMatrix;
 
 layout(location = 0) out VS_OUTPUT {
 	vec4 Position;
-	vec3 WorldPos;
+	vec4 WorldPos;
 	vec2 TextureCoordinate;
 	vec3 WorldNormal;
 	vec4 FragPosLightSpace;
@@ -23,9 +23,9 @@ layout(location = 0) out VS_OUTPUT {
 /************* Vertex Shader *************/
 void main() {
 	OUT.Position = viewProjectionMatrix * worldMatrix * vec4(ObjectPosition.xyz, 1);
-	OUT.WorldPos = vec3(worldMatrix * vec4(ObjectPosition.xyz, 1));
+	OUT.WorldPos = worldMatrix * vec4(ObjectPosition.xyz, 1);
 	OUT.TextureCoordinate = vec2(TextureCoordinate.x, TextureCoordinate.y);
 	OUT.WorldNormal = normalize((worldMatrix * vec4(Normal, 0)).xyz);
-	OUT.FragPosLightSpace = lightSpaceMatrix * vec4(OUT.WorldPos,1);
+	OUT.FragPosLightSpace = lightSpaceMatrix * OUT.WorldPos;
 	gl_Position = OUT.Position;
 }

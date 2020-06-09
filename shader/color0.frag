@@ -4,7 +4,7 @@
 
 layout(location = 0) in VS_OUTPUT {
 	vec4 Position;
-	vec3 WorldPos;
+	vec4 WorldPos;
 	vec2 TextureCoordinate;
 	vec3 WorldNormal;
 	vec4 FragPosLightSpace;
