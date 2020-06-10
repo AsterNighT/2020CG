@@ -12,8 +12,13 @@ class Render {
 public:
 	Render(int, int);
 	void draw();
+	void updatetextureMapID(int ID);
+	void updateItemWorldMatrix(int ItemID, mat4 WorldMatrix);
+	void updateLight(vec3 pos, vec3 tar, float strengh);
+	void updateExpObj(bool fExpObj, std::string meshFilename);
 	void initializeOpenGLObject();
 	void initialize();
+
 	float aspectRatio() const;
 	int width;
 	int height;

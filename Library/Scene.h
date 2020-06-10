@@ -12,6 +12,10 @@ public:
 	Scene(int width, int height) :width(width), height(height){};
 	virtual void draw() = 0;
 	virtual void initialize() = 0;
+	virtual void updatetextureMapID(int ID) = 0;
+	virtual void updateItemWorldMatrix(int ItemID, mat4 WorldMatrix) = 0;
+	virtual void updateLight(vec3 pos, vec3 tar, float strengh) = 0;
+	virtual void updateExpObj(bool fExpObj, std::string meshFilename) = 0;
 protected:
 	std::vector<ShadePass*> mShaderPass;
 	std::vector<SceneModel*> components;

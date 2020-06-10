@@ -28,7 +28,7 @@ Mesh* Mesh::createPrism() {
 	auto* mesh = new Mesh();
 	mesh->mTextureCoordinates.push_back(textureCoordinates);
 	mesh->mVertices.emplace_back(vec3(0, 0, 0));
-	textureCoordinates->emplace_back(vec3(0, 0, 0));
+	textureCoordinates->emplace_back(vec3(0,0,0));
 	mesh->mVertices.emplace_back(vec3(1, 0, 0));
 	textureCoordinates->emplace_back(vec3(1, 0, 0));
 	mesh->mVertices.emplace_back(vec3(1, 1, 0));

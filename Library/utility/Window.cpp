@@ -9,6 +9,9 @@
 #include <glew.h>
 #include "Utility.h"
 
+
+#include <stdio.h>
+
 Render* Window::render = nullptr;
 int Window::initialize(int* argcp, char** argv) {
 	Window::render = new Render(width, height);
@@ -46,22 +49,34 @@ int Window::initialize(int* argcp, char** argv) {
 	}
 	glViewport(0, 0, width, height);
 	render->initialize();
+	GUI tmpmyGUI;
+	myGUI = &tmpmyGUI;
+	myGUI->init(window);
 	return 0;
 }
 
 void Window::run() {
+
+
 	while (!glfwWindowShouldClose(window)) {
+		myGUI->newframe();
+		myGUI->draw(render);
+
 		/* Render here */
 		glClearColor(0,0,0,1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		render->draw();
-
+		
+		myGUI->RenderDrawData();
+        
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
 
 		/* Poll for and process events */
 		glfwPollEvents();
 	}
+
+	myGUI->clearup();
 
 	glfwTerminate();
 }

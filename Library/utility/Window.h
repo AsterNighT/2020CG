@@ -4,8 +4,11 @@
 
 #pragma once
 
+#include "../../GUI.h"
 #include "../../Render.h"
-#include <glfw3.h>
+#include "glfw3.h"
+
+
 class Window {
 public:
 	Window() :Window(1280,720) {
@@ -23,4 +26,6 @@ private:
 	int handle;
 	static Render* render;
 	GLFWwindow* window;
+
+	GUI * myGUI;
 };

@@ -5,6 +5,7 @@ class ShadePass;
 class PointLight {
 public:
 	PointLight();
+	void UpdateLight(vec3 pos, vec3  tar, float streng);
 	vec3 position;
 	vec3 color;
 	vec3 target;

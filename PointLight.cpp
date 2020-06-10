@@ -43,7 +43,11 @@ void PointLight::initialize(ShadePass* colorShader) {
 	depthMapFBO.checkStatus();
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
-
+void PointLight::UpdateLight(vec3 pos, vec3  tar, float streng){
+	position = pos;
+	target = tar;
+	strength = streng;
+}
 mat4 PointLight::getViewProjectionMatrix() {
 	GLfloat near_plane = 1.0f, far_plane = 1000.0f;
 	glm::mat4 lightProjection = glm::perspective(glm::radians(90.0f),1.0f,1.0f,10.0f);

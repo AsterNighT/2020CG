@@ -73,8 +73,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>_CONSOLE;NDEBUG;GLEW_STATIC;FREEGLUT_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\work\personal\2020CG\Library;D:\work\personal\2020CG\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CONSOLE;NDEBUG;GLEW_STATIC;FREEGLUT_STATIC;IMGUI_IMPL_OPENGL_LOADER_GLEW;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\work\personal\2020CG\Library;D:\work\personal\2020CG\include;..\..;D:\work\personal\2020CG\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -90,7 +90,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>_CONSOLE;NDEBUG;GLEW_STATIC;FREEGLUT_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CONSOLE;NDEBUG;GLEW_STATIC;IMGUI_IMPL_OPENGL_LOADER_GLEW;FREEGLUT_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>D:\work\personal\2020CG\Library;D:\work\personal\2020CG\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
@@ -134,7 +134,14 @@
     <ClCompile Include="GLMHelper.cpp" />
     <ClCompile Include="GLObject.cpp" />
     <ClCompile Include="GLSLuniform.cpp" />
+    <ClCompile Include="GUI.cpp" />
     <ClCompile Include="IBO.cpp" />
+    <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_demo.cpp" />
+    <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_impl_glfw.cpp" />
+    <ClCompile Include="imgui_impl_opengl3.cpp" />
+    <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Library\Camera.cpp" />
     <ClCompile Include="Library\ColorHelper.cpp" />
@@ -174,7 +181,16 @@
     <ClInclude Include="GLMHelper.h" />
     <ClInclude Include="GLObject.h" />
     <ClInclude Include="GLSLuniform.h" />
+    <ClInclude Include="GUI.h" />
     <ClInclude Include="IBO.h" />
+    <ClInclude Include="imconfig.h" />
+    <ClInclude Include="imgui.h" />
+    <ClInclude Include="imgui_impl_glfw.h" />
+    <ClInclude Include="imgui_impl_opengl3.h" />
+    <ClInclude Include="imgui_internal.h" />
+    <ClInclude Include="imstb_rectpack.h" />
+    <ClInclude Include="imstb_textedit.h" />
+    <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Library\Camera.h" />
     <ClInclude Include="Library\ColorHelper.h" />

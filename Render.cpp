@@ -37,7 +37,18 @@ void Render::initialize() {
 	scene = new MainScene(camera,width,height);
 	scene->initialize();
 }
-
+void Render::updatetextureMapID(int ID) {
+	scene->updatetextureMapID(ID);
+}
+void Render::updateItemWorldMatrix(int ItemID, mat4 WorldMatrix) {
+	scene->updateItemWorldMatrix(ItemID, WorldMatrix);
+}
+void Render::updateLight(vec3 pos, vec3 tar, float strengh) {
+	scene->updateLight(pos, tar, strengh);
+};
+void Render::updateExpObj(bool fExpObj, std::string meshFilename) {
+	scene->updateExpObj(fExpObj, meshFilename);
+};
 float Render::aspectRatio() const{
 	return static_cast<float>(width) / static_cast<float>(height);
 }
