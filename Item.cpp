@@ -44,7 +44,9 @@ std::string Item::toObjFile(int& vertCount, int& texCoordCount, int& normalCount
 	bool hasTexCoord = !tex.empty();
 	bool hasIndices = !indices.empty();
 	for (int i = 0; i < vertices.size(); i++) {
-		s += "v " + std::to_string(vertices[i].x) + " " + std::to_string(vertices[i].y) + " " + std::to_string(vertices[i].z) + "\n";
+		vec4 v = worldMatrix * vec4(vertices[i], 1);
+		v = v / v.w;
+		s += "v " + std::to_string(v.x) + " " + std::to_string(v.y) + " " + std::to_string(v.z) + "\n";
 	}
 	if (hasTexCoord) {
 		auto texCoords = tex[0];
@@ -53,7 +55,8 @@ std::string Item::toObjFile(int& vertCount, int& texCoordCount, int& normalCount
 		}
 	}
 	for (int i = 0; i < normals.size(); i++) {
-		s += "vn " + std::to_string(normals[i].x) + " " + std::to_string(normals[i].y) + " " + std::to_string(normals[i].z) + "\n";
+		vec4 n = worldMatrix * vec4(normals[i], 0);
+		s += "vn " + std::to_string(n.x) + " " + std::to_string(n.y) + " " + std::to_string(n.z) + "\n";
 	}
 	if (hasIndices) {
 		for (int i = 0; i < indices.size(); i += 3) {
