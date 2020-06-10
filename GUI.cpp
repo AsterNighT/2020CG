@@ -52,9 +52,9 @@ void GUI::draw(Render* render) {
             ImGui::SliderFloat("Intensity###lightIntensity", &lightIntensity, 0.0f, 10.0f);
         }
         render->updateLight(vec3(lightPos[0], lightPos[1], lightPos[2]), vec3(lightTarget[0], lightTarget[1], lightTarget[2]), lightIntensity);
-        static const char* items[]{ "Apple","Banana","Orange" };
+        static const char* items[]{ "Item1","Item2","Item3","Item4","Item5","Item6","Item7","Item8","Item9" };
         static int selectedItem = 0;
-        static const int numOfItems = 3;
+        static const int numOfItems = 9;
         static float Scale[numOfItems] = { 1.0f, 1.0f, 1.0f };
         static float translate[numOfItems][3] = {
             {0.0f, 0.0f, 0.0f},
