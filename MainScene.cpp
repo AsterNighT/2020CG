@@ -126,9 +126,9 @@ void MainScene::initialize() {
 
 std::string MainScene::toObjFile() {
 	std::string s;
-	int texCount = 0;
-	int vertCount = 0;
-	int normalCount = 0;
+	int texCount = 1;
+	int vertCount = 1;
+	int normalCount = 1;
 	for (auto& item : items) {
 		s+=item->toObjFile(vertCount,texCount,normalCount);
 	}
