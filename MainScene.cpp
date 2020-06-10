@@ -80,6 +80,6 @@ std::string MainScene::toObjFile() {
 	for (auto& item : items) {
 		s+=item->toObjFile(vertCount,texCount,normalCount);
 	}
-	std::cout << s << std::endl;
+	//std::cout << s << std::endl;
 	return s;
 }

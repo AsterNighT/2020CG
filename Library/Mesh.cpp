@@ -28,7 +28,7 @@ Mesh* Mesh::createPrism() {
 	auto* mesh = new Mesh();
 	mesh->mTextureCoordinates.push_back(textureCoordinates);
 	mesh->mVertices.emplace_back(vec3(0, 0, 0));
-	textureCoordinates->emplace_back(vec3(0,0,0));
+	textureCoordinates->emplace_back(vec3(0, 0, 0));
 	mesh->mVertices.emplace_back(vec3(1, 0, 0));
 	textureCoordinates->emplace_back(vec3(1, 0, 0));
 	mesh->mVertices.emplace_back(vec3(1, 1, 0));
@@ -55,6 +55,7 @@ Mesh* Mesh::createPrism() {
 	mesh->mVertices.emplace_back(vec3(1, 0, 1));
 	textureCoordinates->emplace_back(vec3(1, 1, 0));
 	for (int i = 0; i < 3; i++) mesh->mNormals.emplace_back(normalize(vec3(-1, 1, 1)));
+	for (int i = 0; i < 12; i++) mesh->mIndices.emplace_back(i);
 	return mesh;
 }
 

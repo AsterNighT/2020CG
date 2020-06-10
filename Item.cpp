@@ -74,7 +74,7 @@ std::string Item::toObjFile(int& vertCount, int& texCoordCount, int& normalCount
 	}
 	s += "\n";
 	vertCount += vertices.size();
-	normalCount += normals.capacity();
+	normalCount += normals.size();
 	if (hasTexCoord) texCoordCount += tex[0]->size();
 	return s;
 }
