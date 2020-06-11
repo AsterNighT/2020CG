@@ -163,6 +163,7 @@
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="RenderTexture.cpp" />
+    <ClCompile Include="ScreenShot.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="ShadowShadePass.cpp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="RenderTexture.h" />
+    <ClInclude Include="ScreenShot.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="ShadowShadePass.h" />
