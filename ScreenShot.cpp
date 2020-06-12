@@ -14,9 +14,8 @@ bool ScreenShot(int height, int width, const char* filename) {
 	const size_t pitch = (width * 3 + 3) & ~3; // DWORD aligned line
 	const size_t len = pitch * height * sizeof(GLbyte);
 	GLbyte* buffer = (GLbyte*)malloc(len);
-	if (!buffer)
-	{
-		fprintf(stderr, "buffer alloc failed!\n");
+	if (!buffer) {
+		printf("buffer alloc failed!\n");
 		return false;
 	}
 
@@ -24,9 +23,8 @@ bool ScreenShot(int height, int width, const char* filename) {
 	glReadPixels(0, 0, width, height, GL_BGR, GL_UNSIGNED_BYTE, buffer);
 
 	FILE* file = fopen(filename, "wb");
-	if (!file)
-	{
-		fprintf(stderr, "can't open %s\n", filename);
+	if (!file) {
+		printf("can't open %s\n", filename);
 		free(buffer);
 		return false;
 	}
@@ -35,8 +33,8 @@ bool ScreenShot(int height, int width, const char* filename) {
 	BITMAPINFOHEADER info_header;
 
 	file_header.bfType = (WORD)('B' | 'M' << 8); // Windows BMP file tag
-	printf("OFF = %d, %d\n", sizeof(BITMAPFILEHEADER), sizeof(BITMAPINFOHEADER));
-	printf("%d %d\n", sizeof(file_header.bfType), sizeof(file_header.bfSize));
+	//printf("OFF = %d, %d\n", sizeof(BITMAPFILEHEADER), sizeof(BITMAPINFOHEADER));
+	//printf("%d %d\n", sizeof(file_header.bfType), sizeof(file_header.bfSize));
 	file_header.bfSize = len + 54;// sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + len;
 	file_header.bfReserved1 = 0;
 	file_header.bfReserved2 = 0;
