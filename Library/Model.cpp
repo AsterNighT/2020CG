@@ -79,6 +79,7 @@ std::vector<Item*> Model::loadModel(const std::string& filename, bool flipUVs){
 			mesh = new Mesh(*(scene->mMeshes[i]));
 			auto item = new Item();
 			item->mesh = mesh;
+			item->name = mesh->Name();
 			data.emplace_back(item);
 		}
 	}

@@ -264,7 +264,7 @@ void Mesh::CreateVertexBuffer() {
 		if (textureCoordinates != nullptr) {
 			uv = textureCoordinates->at(i);
 		} else {
-			uv = vec3(1, 1, 1);
+			uv = vec3(-1, -1, -1);
 		}
 		vec3 normal = normals.at(i);
 
