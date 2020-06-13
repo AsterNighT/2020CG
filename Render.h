@@ -19,6 +19,9 @@ public:
 	void updateItemName(int ItemID, std::string ItemRename);
 	void updateCameraPos(vec3 pos);
 	void updateCameraFront(vec3 pos);
+	void updateCameraLookAt(vec3 pos);
+	vec3 getCameraPos();
+	vec3 getCameraFront();
 	void updateExpObj(bool fExpObj, std::string meshFilename);
 
 	void initializeOpenGLObject();
