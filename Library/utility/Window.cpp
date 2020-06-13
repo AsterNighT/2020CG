@@ -9,7 +9,6 @@
 #include <glew.h>
 #include "Utility.h"
 
-
 #include <stdio.h>
 
 Render* Window::render = nullptr;
@@ -33,6 +32,7 @@ int Window::initialize(int* argcp, char** argv) {
 		glfwTerminate();
 		return -1;
 	}
+	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 	glewExperimental = GL_TRUE;
@@ -55,6 +55,48 @@ int Window::initialize(int* argcp, char** argv) {
 	return 0;
 }
 
+void Window::Control() {
+	// Move forward
+	vec3 LookAt = normalize(render->getCameraFront());
+	//printf("%.2f %.2f %.2f\n", LookAt.x, LookAt.y, LookAt.z);
+	float verticalAngle = asin(LookAt.y);
+	float horizontalAngle;
+	if (LookAt.z != 0)
+		horizontalAngle = atan(LookAt.x / LookAt.z);
+	else
+		horizontalAngle = 3.1415926 / 2;
+	if (LookAt.z < 0)
+		horizontalAngle += 3.1415926;
+
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
+		//position += direction * deltaTime * speed;
+		verticalAngle += AngleMoveSpeed;
+	}
+	// Move backward
+	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+		verticalAngle -= AngleMoveSpeed;
+		//position -= direction * deltaTime * speed;
+	}
+	// Strafe right
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+		horizontalAngle -= AngleMoveSpeed;
+		//position += right * deltaTime * speed;
+	}
+	// Strafe left
+	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
+		horizontalAngle += AngleMoveSpeed;
+		//position -= right * deltaTime * speed;
+	}
+
+	render->updateCameraFront(vec3(
+		cos(verticalAngle) * sin(horizontalAngle),
+		sin(verticalAngle),
+		cos(verticalAngle) * cos(horizontalAngle)
+	));
+	//LookAt = render->getCameraFront();
+	//printf("%.2f %.2f %.2f\n\n", LookAt.x, LookAt.y, LookAt.z);
+}
+
 void Window::run() {
 
 
@@ -65,7 +107,10 @@ void Window::run() {
 		/* Render here */
 		glClearColor(0,0,0,1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		Control();
 		render->draw();
+		vec3 LookAt = render->getCameraFront();
+		//printf("%.2f %.2f %.2f\n", LookAt.x, LookAt.y, LookAt.z);
 		
 		myGUI->RenderDrawData();
         
