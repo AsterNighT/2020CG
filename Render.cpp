@@ -55,10 +55,16 @@ void Render::updateCameraPos(vec3 pos) {
 	camera->UpdateViewMatrix();
 }
 void Render::updateCameraFront(vec3 pos) {
+	camera->SetDirection(pos);
+	camera->SetFOV(45);
+	camera->UpdateViewMatrix();
+}
+void Render::updateCameraLookAt(vec3 pos) {
 	camera->SetLookAt(pos.x, pos.y, pos.z);
 	camera->SetFOV(45);
 	camera->UpdateViewMatrix();
 }
+
 vec3 Render::getCameraPos() {
 	return camera->Position();
 }

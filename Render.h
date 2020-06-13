@@ -17,6 +17,7 @@ public:
 	void updateLight(vec3 pos, vec3 tar, float strengh);
 	void updateCameraPos(vec3 pos);
 	void updateCameraFront(vec3 pos);
+	void updateCameraLookAt(vec3 pos);
 	vec3 getCameraPos();
 	vec3 getCameraFront();
 	void updateExpObj(bool fExpObj, std::string meshFilename);

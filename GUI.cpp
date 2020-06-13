@@ -108,14 +108,14 @@ void GUI::draw(Render* render) {
                             angle2 -= 6.28;
                     render->updateCameraPos(vec3(dist * sin(angle1) * cos(angle2), dist * cos(angle1), dist * sin(angle1) * sin(angle2)));
                    // render->updateCameraPos(vec3(-3, -3, 3));
-                    render->updateCameraFront(vec3(0, 0, 0));
+                    render->updateCameraLookAt(vec3(0, 0, 0));
             }
 
             ImGui::SameLine();
             if (ImGui::Button("ZoomToFit")) {
                     cameraOrbit = false;
                     render->updateCameraPos(vec3(3, 3, 3));
-                    render->updateCameraFront(vec3(0, 0, 0));
+                    render->updateCameraLookAt(vec3(0, 0, 0));
             }
         }
         static char meshFilename[64] = "dummy.obj";

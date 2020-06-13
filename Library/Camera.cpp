@@ -95,6 +95,10 @@ void Camera::SetPosition(const vec3& position) {
 	mPosition = position;
 }
 
+void Camera::SetDirection(const vec3& dir) {
+	mDirection = normalize(dir);
+}
+
 void Camera::SetLookAt(FLOAT x, FLOAT y, FLOAT z) {
 	vec3 DisPoint = vec3(x, y, z);
 	vec3 direction = DisPoint - mPosition;
