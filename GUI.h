@@ -12,6 +12,9 @@ public:
 	void draw(Render* render);
 	void RenderDrawData();
 	void clearup();
+	bool isOrbit();
 private:
 	ImGuiIO *io;
+	char items[100][200];
+	bool mycameraOrbit;
 };
