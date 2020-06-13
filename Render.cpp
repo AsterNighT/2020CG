@@ -39,8 +39,14 @@ void Render::initialize() {
 	scene = new MainScene(camera,width,height);
 	scene->initialize();
 }
-void Render::updatetextureMapID(int ID) {
-	scene->updatetextureMapID(ID);
+std::vector<std::string> Render::ImportItems(std::string ImportMeshFilename) {
+	return scene->ImportItems(ImportMeshFilename);
+}
+void Render::updateItemName(int ItemID, std::string ItemRename) {
+	scene->updateItemName(ItemID, ItemRename);
+}
+void Render::updatetextureMapID(int ItemID, int TextureID) {
+	scene->updatetextureMapID(ItemID, TextureID);
 }
 void Render::updateItemWorldMatrix(int ItemID, mat4 WorldMatrix) {
 	scene->updateItemWorldMatrix(ItemID, WorldMatrix);
