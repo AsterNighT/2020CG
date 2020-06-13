@@ -1,5 +1,5 @@
 #include "GUI.h"
-
+#include "ScreenShot.h"
 
 void GUI::init(GLFWwindow* window) {
 	// Setup Dear ImGui context
@@ -96,22 +96,36 @@ void GUI::draw(Render* render) {
             render->updateItemWorldMatrix(selectedItem, NewWorldMatrix);
         }
         static bool cameraOrbit = false;
-        static bool cameraZoomToFit = false;
+        static float angle1 = acos(1/sqrt(3)), angle2 = acos(1/sqrt(2)), dist = 5 * sqrt(3);
         if (ImGui::CollapsingHeader("Camera configuration:"))
         {
             ImGui::Checkbox("Orbit", &cameraOrbit);
-            if (cameraOrbit == true) cameraZoomToFit = false;
+            //if (cameraOrbit == true) cameraOrbit = false;
+            if (cameraOrbit) {
+                    printf("Orbiting\n");
+                    angle2 += 0.01;
+                    if (angle2 > 6.28)
+                            angle2 -= 6.28;
+                    render->updateCameraPos(vec3(dist * sin(angle1) * cos(angle2), dist * cos(angle1), dist * sin(angle1) * sin(angle2)));
+                   // render->updateCameraPos(vec3(-3, -3, 3));
+                    render->updateCameraFront(vec3(0, 0, 0));
+            }
+
             ImGui::SameLine();
-            ImGui::Checkbox("ZoomToFit", &cameraZoomToFit);
+            if (ImGui::Button("ZoomToFit")) {
+                    cameraOrbit = false;
+                    render->updateCameraPos(vec3(3, 3, 3));
+                    render->updateCameraFront(vec3(0, 0, 0));
+            }
         }
-        static char meshFilename[64] = "dummy";
-        static char screenShotFilename[64] = "dummy";
+        static char meshFilename[64] = "dummy.obj";
+        static char screenShotFilename[64] = "dummy.bmp";
         if (ImGui::CollapsingHeader("Export to file:"))
         {
             ImGui::Text("Export mesh:");
             ImGui::InputText("File name###meshFilename", meshFilename, IM_ARRAYSIZE(meshFilename));
             ImGui::SameLine();
-            if (ImGui::Button("export"))
+            if (ImGui::Button("export###mesh"))
             {
                 render->updateExpObj(1, meshFilename);
             }
@@ -122,10 +136,15 @@ void GUI::draw(Render* render) {
             ImGui::Text("Screen shot:");
             ImGui::InputText("File name###screenShotFilename", screenShotFilename, IM_ARRAYSIZE(screenShotFilename));
             ImGui::SameLine();
-            if (ImGui::Button("export"))
+            if (ImGui::Button("export###img"))
             {
-                
-                //TODO:: export Screen shot
+                    printf("Printing\n");
+                    bool flag_shot = ScreenShot(720/*height*/, 1280/*width*/, screenShotFilename);
+                    if (flag_shot)
+                            printf("Export succeeded. \n");
+                    else
+                            printf("Export failed. \n");
+
             }
         }
         ImGui::End();

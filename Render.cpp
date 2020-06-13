@@ -13,6 +13,8 @@ void Render::draw() {
 	scene->draw();
 }
 
+
+
 void Render::initializeOpenGLObject() {
 
 }
@@ -46,6 +48,18 @@ void Render::updateItemWorldMatrix(int ItemID, mat4 WorldMatrix) {
 void Render::updateLight(vec3 pos, vec3 tar, float strengh) {
 	scene->updateLight(pos, tar, strengh);
 };
+
+void Render::updateCameraPos(vec3 pos) {
+	camera->SetPosition(pos);
+	camera->SetFOV(45);
+	camera->UpdateViewMatrix();
+}
+void Render::updateCameraFront(vec3 pos) {
+	camera->SetLookAt(pos.x, pos.y, pos.z);
+	camera->SetFOV(45);
+	camera->UpdateViewMatrix();
+}
+
 void Render::updateExpObj(bool fExpObj, std::string meshFilename) {
 	scene->updateExpObj(fExpObj, meshFilename);
 };

@@ -156,6 +156,9 @@
     <ClCompile Include="GUI.cpp">
       <Filter>Source Files\Program</Filter>
     </ClCompile>
+    <ClCompile Include="ScreenShot.cpp">
+      <Filter>Source Files\Program</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="library\utility\Window.h">
@@ -297,6 +300,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenShot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

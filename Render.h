@@ -15,6 +15,8 @@ public:
 	void updatetextureMapID(int ID);
 	void updateItemWorldMatrix(int ItemID, mat4 WorldMatrix);
 	void updateLight(vec3 pos, vec3 tar, float strengh);
+	void updateCameraPos(vec3 pos);
+	void updateCameraFront(vec3 pos);
 	void updateExpObj(bool fExpObj, std::string meshFilename);
 	void initializeOpenGLObject();
 	void initialize();
