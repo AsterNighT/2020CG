@@ -59,6 +59,12 @@ void Render::updateCameraFront(vec3 pos) {
 	camera->SetFOV(45);
 	camera->UpdateViewMatrix();
 }
+vec3 Render::getCameraPos() {
+	return camera->Position();
+}
+vec3 Render::getCameraFront() {
+	return camera->Direction();
+}
 
 void Render::updateExpObj(bool fExpObj, std::string meshFilename) {
 	scene->updateExpObj(fExpObj, meshFilename);
