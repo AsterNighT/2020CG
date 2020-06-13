@@ -52,7 +52,7 @@ vec3 calcPhongColor(){
 	lightVec = normalize(lightVec);
 	viewVec = normalize(viewVec);
 	vec3 reflectVec = reflect(-lightVec, IN.WorldNormal);
-	vec4 texColor = texture2D(colorTexture, IN.TextureCoordinate);
+	vec4 texColor = IN.TextureCoordinate.x >= 0 ? texture2D(colorTexture, IN.TextureCoordinate) : vec4(0.7,0.7,0.7,0.7);
 	vec4 specColor = texColor * vec4(lightColor, 1) * strength * pow(max(0,dot(reflectVec,viewVec)),specPower);
 	vec4 diffuseColor = texColor * vec4(lightColor, 1) * strength * max(0,dot(lightVec,IN.WorldNormal));
 	return vec3(specColor+diffuseColor);

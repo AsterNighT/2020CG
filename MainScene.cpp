@@ -121,6 +121,8 @@ void MainScene::initialize() {
 	item->mesh = Mesh::createPrism();
 	item->texture = new Texture(colorShader.GetShader(), "asset/floor.jpg", "colorTexture", 0);
 	items.emplace_back(item);
+	item = Model::loadModel("obj/bunny_1k.obj").at(0);
+	items.emplace_back(item);
 	//toObjFile();
 }
 
