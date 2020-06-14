@@ -1,5 +1,4 @@
 #include "GUI.h"
-#include "ScreenShot.h"
 
 
 void GUI::init(GLFWwindow* window) {
@@ -161,7 +160,7 @@ std::string GUI::draw(Render* render) {
             //if (cameraOrbit == true) cameraOrbit = false;
             if (cameraOrbit) {
                     freeViewpoint = false;
-                    printf("Orbiting\n");
+                    //printf("Orbiting\n");
                     angle2 += 0.01;
                     if (angle2 > 6.28)
                             angle2 -= 6.28;
@@ -174,6 +173,7 @@ std::string GUI::draw(Render* render) {
                     cameraOrbit = false;
                     render->updateCameraPos(vec3(3, 3, 3));
                     render->updateCameraLookAt(vec3(0, 0, 0));
+                    render->updateCameraFOV(45.0);
             }
         }
         
@@ -201,14 +201,7 @@ std::string GUI::draw(Render* render) {
             if (ImGui::Button("export###img"))
             {
                     isScreenShot = true;
-
                     printf("Printing\n");
-                    bool flag_shot = ScreenShot(720/*height*/, 1280/*width*/, screenShotFilename);
-                    if (flag_shot)
-                            printf("Export succeeded. \n");
-                    else
-                            printf("Export failed. \n");
-
             }
             else {
                 isScreenShot = false;

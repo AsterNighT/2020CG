@@ -57,18 +57,18 @@ void Render::updateLight(vec3 pos, vec3 tar, float strengh) {
 
 void Render::updateCameraPos(vec3 pos) {
 	camera->SetPosition(pos);
-	camera->SetFOV(45);
 	camera->UpdateViewMatrix();
 }
 void Render::updateCameraFront(vec3 pos) {
 	camera->SetDirection(pos);
-	camera->SetFOV(45);
 	camera->UpdateViewMatrix();
 }
 void Render::updateCameraLookAt(vec3 pos) {
 	camera->SetLookAt(pos.x, pos.y, pos.z);
-	camera->SetFOV(45);
 	camera->UpdateViewMatrix();
+}
+void Render::updateCameraFOV(float fov) {
+	camera->SetFOV(fov);
 }
 
 vec3 Render::getCameraPos() {
@@ -76,6 +76,9 @@ vec3 Render::getCameraPos() {
 }
 vec3 Render::getCameraFront() {
 	return camera->Direction();
+}
+float Render::getCameraFOV() {
+	return camera->FieldOfView();
 }
 
 void Render::updateExpObj(bool fExpObj, std::string meshFilename) {

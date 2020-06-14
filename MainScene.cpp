@@ -7,9 +7,9 @@
 
 std::string num2str(int x)
 {
-	std::ostringstream os; //¹¹ÔìÒ»¸öÊä³ö×Ö·û´®Á÷£¬Á÷ÄÚÈİÎª¿Õ 
-	os << x; //ÏòÊä³ö×Ö·û´®Á÷ÖĞÊä³öintÕûÊıiµÄÄÚÈİ 
-	return os.str(); //ÀûÓÃ×Ö·û´®Á÷µÄstrº¯Êı»ñÈ¡Á÷ÖĞµÄÄÚÈİ
+	std::ostringstream os; //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ 
+	os << x; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½intï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	return os.str(); //ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½strï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ğµï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
 MainScene::MainScene(Camera* camera, int width, int height) :Scene(width, height), colorShader(camera) {
