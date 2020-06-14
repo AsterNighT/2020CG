@@ -7,7 +7,9 @@
 #include "../../GUI.h"
 #include "../../Render.h"
 #include "glfw3.h"
+#include "../../include/glm/glm.hpp"
 
+const float AngleMoveSpeed = 0.01;
 
 class Window {
 public:
@@ -27,5 +29,6 @@ private:
 	static Render* render;
 	GLFWwindow* window;
 
+	void Control();
 	GUI * myGUI;
-};
+}; 

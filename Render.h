@@ -12,12 +12,18 @@ class Render {
 public:
 	Render(int, int);
 	void draw();
-	void updatetextureMapID(int ID);
+	std::vector<std::string> ImportItems(std::string InportMeshFilename);
+	void updatetextureMapID(int ItemID, int TextureID);
 	void updateItemWorldMatrix(int ItemID, mat4 WorldMatrix);
 	void updateLight(vec3 pos, vec3 tar, float strengh);
+	void updateItemName(int ItemID, std::string ItemRename);
 	void updateCameraPos(vec3 pos);
 	void updateCameraFront(vec3 pos);
+	void updateCameraLookAt(vec3 pos);
+	vec3 getCameraPos();
+	vec3 getCameraFront();
 	void updateExpObj(bool fExpObj, std::string meshFilename);
+
 	void initializeOpenGLObject();
 	void initialize();
 

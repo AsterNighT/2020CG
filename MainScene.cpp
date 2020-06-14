@@ -14,21 +14,41 @@ std::string num2str(int x)
 
 MainScene::MainScene(Camera* camera, int width, int height) :Scene(width, height), colorShader(camera) {
 	this->camera = camera;
-	textureID = 0;
 }
-void MainScene::updatetextureMapID(int ID) {
-	textureID = ID;
+void MainScene::updatetextureMapID(int ItemID, int TextureID) {
+	items[ItemID]->texture=Textures[TextureID];
 }
 void MainScene::updateItemWorldMatrix(int ItemID, mat4 WorldMatrix) {
 	items[ItemID]->updateWorldMatrix(WorldMatrix);
 }
+void MainScene::updateItemName(int ItemID, std::string ItemRename) {
+	items[ItemID]->name=ItemRename;
+}
 void MainScene::updateLight(vec3 pos, vec3 tar, float strengh) {
 	light.UpdateLight(pos, tar, strengh);
 };
+
 void MainScene::updateExpObj(bool _fExpObj, std::string _meshFilename) {
 	fExpObj = _fExpObj;
 	meshFilename = _meshFilename;
 };
+std::vector<std::string> MainScene::ImportItems(std::string ImportMeshFilename) {
+	std::vector<Item*>vectorOfItem = Model::loadModel("9.obj");
+	std::cout << vectorOfItem.size() << std::endl;
+
+	Item* item;
+	std::vector<std::string> ret;
+	ret.clear();
+
+	for (int i = 0; i < vectorOfItem.size(); i++) {
+		std::cout << vectorOfItem.size() << std::endl;
+		item = vectorOfItem[i];
+		ret.push_back(item->name);
+		item->texture = new Texture(colorShader.GetShader(), "asset/floor.jpg", "colorTexture", 0);
+		items.emplace_back(item);
+	}
+	return ret;
+}
 void MainScene::draw() {
 	shadowShader.GetShader()->bind();
 	shadowShader.configurate();
@@ -43,11 +63,6 @@ void MainScene::draw() {
 	colorShader.GetShader()->bind();
 	colorShader.configurate();
 	light.configurate(&colorShader);
-	//std::cout <<"sad"<< textureID;
-	if (textureID == -842150451) textureID = 0;
-	if (fExpObj == 205) fExpObj = 0;
-	items[0]->texture = Textures[textureID];
-	//std::cout << "fExpObj" << fExpObj << std::endl;
 	if (fExpObj) {
 		std::cout << meshFilename << std::endl;
 		std::ofstream file(meshFilename);
@@ -72,6 +87,8 @@ void MainScene::initialize() {
 
 	//texture preload
 	Textures.clear();
+	Texture* newtex = new Texture(colorShader.GetShader(), "asset/floor.jpg", "colorTexture", 0);
+	Textures.push_back(newtex);
 	for (int i = 1; i <= 40; i++) {
 		static std::string filename;
 		std::string tmp = num2str(i);
@@ -81,9 +98,8 @@ void MainScene::initialize() {
 		std::cout << filename << std::endl;
 		Texture * newtex=new Texture(colorShader.GetShader(), filename.c_str(), "colorTexture", 0);
 		Textures.push_back(newtex);
-
 	}
-
+	
 
 	auto t = Model::loadModel("obj/cube.obj");
 	t.at(0)->name = "cube1";
@@ -112,16 +128,20 @@ void MainScene::initialize() {
 	items.clear();
 	auto item = new Item();
 	item->mesh = new Mesh(srf);
-	item->texture = new Texture(colorShader.GetShader(), "asset/meya.jpg", "colorTexture", 0);
+	item->texture = new Texture(colorShader.GetShader(), "asset/floor.jpg", "colorTexture", 0);
 	items.emplace_back(item);
+
 	item = Model::loadModel("obj/plane.obj").at(0);
 	item->texture = new Texture(colorShader.GetShader(), "asset/floor.jpg", "colorTexture", 0);
 	items.emplace_back(item);
+	
 	item = new Item();
 	item->mesh = Mesh::createPrism();
 	item->texture = new Texture(colorShader.GetShader(), "asset/floor.jpg", "colorTexture", 0);
 	items.emplace_back(item);
+	
 	item = Model::loadModel("obj/bunny_1k.obj").at(0);
+	item->texture = new Texture(colorShader.GetShader(), "asset/meya.jpg", "colorTexture", 0);
 	items.emplace_back(item);
 	//toObjFile();
 }

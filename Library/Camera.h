@@ -31,6 +31,7 @@ public:
 	virtual void SetPosition(FLOAT x, FLOAT y, FLOAT z);
 	virtual void SetPosition(const vec3& position);
 
+	virtual void SetDirection(const vec3& dir);
 	virtual void SetLookAt(FLOAT x, FLOAT y, FLOAT z);
 	virtual void SetFOV(float fov);
 

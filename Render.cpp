@@ -39,8 +39,14 @@ void Render::initialize() {
 	scene = new MainScene(camera,width,height);
 	scene->initialize();
 }
-void Render::updatetextureMapID(int ID) {
-	scene->updatetextureMapID(ID);
+std::vector<std::string> Render::ImportItems(std::string ImportMeshFilename) {
+	return scene->ImportItems(ImportMeshFilename);
+}
+void Render::updateItemName(int ItemID, std::string ItemRename) {
+	scene->updateItemName(ItemID, ItemRename);
+}
+void Render::updatetextureMapID(int ItemID, int TextureID) {
+	scene->updatetextureMapID(ItemID, TextureID);
 }
 void Render::updateItemWorldMatrix(int ItemID, mat4 WorldMatrix) {
 	scene->updateItemWorldMatrix(ItemID, WorldMatrix);
@@ -55,9 +61,21 @@ void Render::updateCameraPos(vec3 pos) {
 	camera->UpdateViewMatrix();
 }
 void Render::updateCameraFront(vec3 pos) {
+	camera->SetDirection(pos);
+	camera->SetFOV(45);
+	camera->UpdateViewMatrix();
+}
+void Render::updateCameraLookAt(vec3 pos) {
 	camera->SetLookAt(pos.x, pos.y, pos.z);
 	camera->SetFOV(45);
 	camera->UpdateViewMatrix();
+}
+
+vec3 Render::getCameraPos() {
+	return camera->Position();
+}
+vec3 Render::getCameraFront() {
+	return camera->Direction();
 }
 
 void Render::updateExpObj(bool fExpObj, std::string meshFilename) {

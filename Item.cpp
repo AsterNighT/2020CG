@@ -5,6 +5,7 @@ Item::Item() {
 	mesh = nullptr;
 	worldMatrix = glm::identity<mat4>();
 }
+
 void Item::updateWorldMatrix(mat4 tWorldMatrix) {
 	worldMatrix = tWorldMatrix;
 }
