@@ -14,6 +14,7 @@ void GUI::init(GLFWwindow* window) {
 	ImGui_ImplOpenGL3_Init(glsl_version);
 	io->Fonts->AddFontDefault();
     mycameraOrbit = false;
+    myfreeViewpoint = false;
 }
 void GUI::newframe() {
 	ImGui_ImplOpenGL3_NewFrame();
@@ -120,9 +121,13 @@ void GUI::draw(Render* render) {
             NewWorldMatrix = glm::scale(RotateMatrix, glm::vec3(Scale[selectedItem], Scale[selectedItem], Scale[selectedItem]));
             render->updateItemWorldMatrix(selectedItem, NewWorldMatrix);
         }
+
+        static bool freeViewpoint = false;
+
         static char ImportMeshFilename[64] = "in.obj";
         if (ImGui::CollapsingHeader("Import an obj:"))
         {
+            freeViewpoint = false;
             ImGui::InputText("File name###ImportMeshFilename", ImportMeshFilename, IM_ARRAYSIZE(ImportMeshFilename));
             ImGui::SameLine();
             if (ImGui::Button("import##importObj")) {
@@ -143,12 +148,17 @@ void GUI::draw(Render* render) {
         }
 
         static bool cameraOrbit = false;
+        
         static float angle1 = acos(1/sqrt(3)), angle2 = acos(1/sqrt(2)), dist = 5 * sqrt(3);
+        
         if (ImGui::CollapsingHeader("Camera configuration:"))
         {
+            ImGui::Checkbox("Free viewpoint:", &freeViewpoint);
+            ImGui::SameLine();
             ImGui::Checkbox("Orbit", &cameraOrbit);
             //if (cameraOrbit == true) cameraOrbit = false;
             if (cameraOrbit) {
+                    freeViewpoint = false;
                     printf("Orbiting\n");
                     angle2 += 0.01;
                     if (angle2 > 6.28)
@@ -164,13 +174,16 @@ void GUI::draw(Render* render) {
                     render->updateCameraLookAt(vec3(0, 0, 0));
             }
         }
+        myfreeViewpoint = freeViewpoint;
         mycameraOrbit = cameraOrbit;
         //std::cout << "mycameraOrbit" << mycameraOrbit << std::endl;
+        std::cout << "myfreeViewpoint" << myfreeViewpoint << std::endl;
         static char ExportmeshFilename[64] = "a.obj";
         static char screenShotFilename[64] = "a.bmp";
         render->updateExpObj(0, "dummy");
         if (ImGui::CollapsingHeader("Export to file:"))
         {
+            freeViewpoint = false;
             ImGui::Text("Export mesh:");
             ImGui::InputText("File name###ExportmeshFilename", ExportmeshFilename, IM_ARRAYSIZE(ExportmeshFilename));
             ImGui::SameLine();
@@ -200,6 +213,9 @@ void GUI::draw(Render* render) {
 }
 bool GUI:: isOrbit() {
     return mycameraOrbit;
+}
+bool GUI::isFreeViewpoint() {
+    return myfreeViewpoint;
 }
 void GUI::RenderDrawData() {
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

@@ -13,8 +13,10 @@ public:
 	void RenderDrawData();
 	void clearup();
 	bool isOrbit();
+	bool isFreeViewpoint();
 private:
 	ImGuiIO *io;
 	char items[100][200];
 	bool mycameraOrbit;
+	bool myfreeViewpoint;
 };
