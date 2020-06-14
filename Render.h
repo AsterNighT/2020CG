@@ -20,8 +20,10 @@ public:
 	void updateCameraPos(vec3 pos);
 	void updateCameraFront(vec3 pos);
 	void updateCameraLookAt(vec3 pos);
+	void updateCameraFOV(float fov);
 	vec3 getCameraPos();
 	vec3 getCameraFront();
+	float getCameraFOV();
 	void updateExpObj(bool fExpObj, std::string meshFilename);
 
 	void initializeOpenGLObject();

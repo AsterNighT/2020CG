@@ -26,6 +26,7 @@ public:
 	//bool updateFreeViewpoint(int guiIsFreeViewpoint);
 
 private:
+	static void Window::ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 	int width, height;
 	int handle;
 	static Render* render;

@@ -173,6 +173,7 @@ std::string GUI::draw(Render* render) {
                     cameraOrbit = false;
                     render->updateCameraPos(vec3(3, 3, 3));
                     render->updateCameraLookAt(vec3(0, 0, 0));
+                    render->updateCameraFOV(45.0);
             }
         }
         

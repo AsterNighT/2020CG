@@ -34,7 +34,9 @@ int Window::initialize(int* argcp, char** argv) {
 		glfwTerminate();
 		return -1;
 	}
+	/* Enable keyboard and cursor control */
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 	glewExperimental = GL_TRUE;
@@ -58,6 +60,14 @@ int Window::initialize(int* argcp, char** argv) {
 	isScreenShot = false;
 	screenShotFilename = "";
 	return 0;
+}
+
+#include<iostream>
+void Window::ScrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
+	//m_pGameCamera->m_pos.x += xoffset;
+	float FoV = render -> getCameraFOV() * 180 / acos(-1) - 2 * yoffset; 
+	render->updateCameraFOV(FoV);
+	//std::cout << "Scroll: (" << xoffset << "," << yoffset << ")" << std::endl;
 }
 
 void Window::Control() {
@@ -94,6 +104,7 @@ void Window::Control() {
 	);
 
 	if (isFreeViewpoint) {
+		glfwSetScrollCallback(window,ScrollCallback);
 	
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
 			curPos += PositionMoveSpeed * LookAt;
@@ -129,6 +140,7 @@ void Window::Control() {
 		if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
 			horizontalAngle += AngleMoveSpeed;
 		}
+
 
 	}
 	//printf("ver = %.2f\n", verticalAngle);
