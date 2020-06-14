@@ -27,7 +27,9 @@ layout (location = 10) uniform sampler2D shadowMap;
 float calcShadow(){
     vec3 projCoords = IN.FragPosLightSpace.xyz/IN.FragPosLightSpace.w;
     projCoords = projCoords * 0.5 + vec3(0.5,0.5,0.5);
-	if(projCoords.z > 1.0) return 1.0;//No shadow
+	if(projCoords.x>1||projCoords.x<0) return 0.0;
+	if(projCoords.y>1||projCoords.y<0) return 0.0;
+	if(projCoords.z > 1.0) return 0.0;//No shadow
     float closestDepth = texture(shadowMap, projCoords.xy).r; 
     float currentDepth = projCoords.z;
 	float bias = 0.005;
