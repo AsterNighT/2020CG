@@ -23,13 +23,16 @@ public:
 	int initialize(int* argcp, char** argv);
 
 	void run();
+	//bool updateFreeViewpoint(int guiIsFreeViewpoint);
 
 private:
 	int width, height;
 	int handle;
 	static Render* render;
 	GLFWwindow* window;
-
+	bool isFreeViewpoint;
+	bool isScreenShot;
+	std::string screenShotFilename;
 	void Control();
-	GUI * myGUI;
+	GUI* myGUI;
 }; 

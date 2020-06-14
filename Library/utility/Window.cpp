@@ -52,17 +52,26 @@ int Window::initialize(int* argcp, char** argv) {
 	GUI tmpmyGUI;
 	myGUI = &tmpmyGUI;
 	myGUI->init(window);
+	isFreeViewpoint = false;
+	isScreenShot = false;
+	screenShotFilename = "";
 	return 0;
 }
 
 void Window::Control() {
-	/*
-	if (myGUI->isFreeViewpoint())
+
+	/*if (isFreeViewpoint)
 		printf("Free to move!!!!!!!!!!!!\n");
 	else
 		printf("Can't move!!!!!!!!!\n");
-		*/
 
+	if (isScreenShot)
+		printf("isScreenShot!!!!!!!!!!!!\n");
+	else
+		printf("No ScreenShot!!!!!!!!!\n"); */
+	std::cout << "isFreeViewpoint " << isFreeViewpoint << std::endl;
+	std::cout << "isScreenShot " << isScreenShot << std::endl;
+	std::cout << "screenShotFilename " << screenShotFilename << std::endl;
 	vec3 curPos = (render->getCameraPos());
 
 	vec3 LookAt = normalize(render->getCameraFront());
@@ -138,11 +147,14 @@ void Window::Control() {
 
 void Window::run() {
 
-
+	std::string GuiReturnValue;
 	while (!glfwWindowShouldClose(window)) {
 		myGUI->newframe();
-		myGUI->draw(render);
-
+		GuiReturnValue = myGUI->draw(render);
+		std::cout << "GuiReturnValue" << GuiReturnValue << std::endl;
+		if (GuiReturnValue[1] == '0') isFreeViewpoint = 0; else isFreeViewpoint = 1;
+		if (GuiReturnValue[0] == '0') isScreenShot = 0; else isScreenShot = 1;
+		screenShotFilename = GuiReturnValue.substr(2, GuiReturnValue.length() - 2);
 		/* Render here */
 		glClearColor(0,0,0,1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
