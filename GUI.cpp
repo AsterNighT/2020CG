@@ -1,6 +1,7 @@
 #include "GUI.h"
 #include "ScreenShot.h"
 
+
 void GUI::init(GLFWwindow* window) {
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
@@ -22,8 +23,9 @@ void GUI::newframe() {
 	ImGui::NewFrame();
 
 }
-void GUI::draw(Render* render) {
-
+std::string GUI::draw(Render* render) {
+    std::string re;
+    std::string tmpscreenShotFilename;
     {
         static float f = 0.0f;
         static int counter = 0;
@@ -174,10 +176,11 @@ void GUI::draw(Render* render) {
                     render->updateCameraLookAt(vec3(0, 0, 0));
             }
         }
-        myfreeViewpoint = freeViewpoint;
+        
         mycameraOrbit = cameraOrbit;
+        static bool isScreenShot = false;
         //std::cout << "mycameraOrbit" << mycameraOrbit << std::endl;
-        std::cout << "myfreeViewpoint" << myfreeViewpoint << std::endl;
+        
         static char ExportmeshFilename[64] = "a.obj";
         static char screenShotFilename[64] = "a.bmp";
         render->updateExpObj(0, "dummy");
@@ -197,6 +200,8 @@ void GUI::draw(Render* render) {
             ImGui::SameLine();
             if (ImGui::Button("export###img"))
             {
+                    isScreenShot = true;
+
                     printf("Printing\n");
                     bool flag_shot = ScreenShot(720/*height*/, 1280/*width*/, screenShotFilename);
                     if (flag_shot)
@@ -205,17 +210,36 @@ void GUI::draw(Render* render) {
                             printf("Export failed. \n");
 
             }
+            else {
+                isScreenShot = false;
+            }
+        }
+        tmpscreenShotFilename=screenShotFilename;
+        re = tmpscreenShotFilename;
+        if (freeViewpoint == 0) {
+            re = "0" + re;
+        }
+        else {
+            re = "1" + re;
+        }
+        if (isScreenShot == 0) {
+            re = "0" + re;
+        }
+        else {
+            re = "1" + re;
         }
         ImGui::End();
     }
 
     ImGui::Render();
+    return re;
 }
 bool GUI:: isOrbit() {
     return mycameraOrbit;
 }
 bool GUI::isFreeViewpoint() {
-    return myfreeViewpoint;
+    std::cout << "In function isfreeViewpoint" << myfreeViewpoint << std::endl;
+    return myfreeViewpoint == 1;
 }
 void GUI::RenderDrawData() {
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
