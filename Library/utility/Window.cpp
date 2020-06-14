@@ -81,9 +81,9 @@ void Window::Control() {
 		printf("isScreenShot!!!!!!!!!!!!\n");
 	else
 		printf("No ScreenShot!!!!!!!!!\n"); */
-	std::cout << "isFreeViewpoint " << isFreeViewpoint << std::endl;
-	std::cout << "isScreenShot " << isScreenShot << std::endl;
-	std::cout << "screenShotFilename " << screenShotFilename << std::endl;
+	//std::cout << "isFreeViewpoint " << isFreeViewpoint << std::endl;
+	//std::cout << "isScreenShot " << isScreenShot << std::endl;
+	//std::cout << "screenShotFilename " << screenShotFilename << std::endl;
 	vec3 curPos = (render->getCameraPos());
 
 	vec3 LookAt = normalize(render->getCameraFront());

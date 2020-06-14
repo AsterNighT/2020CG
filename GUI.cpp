@@ -29,10 +29,8 @@ std::string GUI::draw(Render* render) {
         static float f = 0.0f;
         static int counter = 0;
 
-        ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+        ImGui::Begin("GUI!");                          // Create a window called "Hello, world!" and append into it.
 
-        if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-            counter++;
         ImGui::SameLine();
         ImGui::Text("counter = %d", counter);
 
@@ -99,15 +97,15 @@ std::string GUI::draw(Render* render) {
                 ItemRename[0] = '\0';
             }
             ImGui::Text("Translation of %s", itemsNamePointer[selectedItem]);
-            ImGui::SliderFloat("x###translationX", &translate[selectedItem][0], 0.0f, 1.0f);
-            ImGui::SliderFloat("y###translationY", &translate[selectedItem][1], 0.0f, 1.0f);
-            ImGui::SliderFloat("z###translationZ", &translate[selectedItem][2], 0.0f, 1.0f);
+            ImGui::SliderFloat("x###translationX", &translate[selectedItem][0], -5.0f, 5.0f);
+            ImGui::SliderFloat("y###translationY", &translate[selectedItem][1], -5.0f, 5.0f);
+            ImGui::SliderFloat("z###translationZ", &translate[selectedItem][2], -5.0f, 5.0f);
             ImGui::Text("Rotation of %s", itemsNamePointer[selectedItem]);
             ImGui::SliderFloat("x###rotationX", &rotation[selectedItem][0], 0.0f, 360.0f);
             ImGui::SliderFloat("y###rotationY", &rotation[selectedItem][1], 0.0f, 360.0f);
             ImGui::SliderFloat("z###rotationZ", &rotation[selectedItem][2], 0.0f, 360.0f);
             ImGui::Text("Scale of %s", itemsNamePointer[selectedItem]);
-            ImGui::SliderFloat("Scale", &Scale[selectedItem], 0.0f, 10.0f);
+            ImGui::SliderFloat("Scale", &Scale[selectedItem], 0.0f, 3.0f);
             ImGui::Text("Texture of %s", itemsNamePointer[selectedItem]);
             ImGui::SliderInt("textureMapID###textureMapID", &textureMapID[selectedItem], 0, 40);
             render->updatetextureMapID(selectedItem,textureMapID[selectedItem]);  
