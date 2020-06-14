@@ -90,7 +90,7 @@ void MainScene::initialize() {
 	Textures.clear();
 	Texture* newtex = new Texture(colorShader.GetShader(), "asset/floor.jpg", "colorTexture", 0);
 	Textures.push_back(newtex);
-	for (int i = 1; i <= 1; i++) {
+	for (int i = 1; i <= 40; i++) {
 		static std::string filename;
 		std::string tmp = num2str(i);
 		if (tmp.length() == 1) tmp = "0" + tmp;

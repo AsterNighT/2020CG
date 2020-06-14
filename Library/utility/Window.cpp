@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 
-#include "ScreenShot.h"
+#include "../../ScreenShot.h"
 
 Render* Window::render = nullptr;
 int Window::initialize(int* argcp, char** argv) {
