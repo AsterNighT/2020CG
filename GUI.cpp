@@ -128,9 +128,11 @@ void GUI::draw(Render* render) {
             if (ImGui::Button("import##importObj")) {
                 static std::vector<std::string> vectorOfItemName;
                 vectorOfItemName = render->ImportItems(ImportMeshFilename);
+
                 for (int i = 0; i < vectorOfItemName.size(); i++) {
                     static int ItemID;
-                    ItemID= i + (numberOfItems++);
+                    ItemID= (numberOfItems++);
+                    std::cout <<"ItemID"<< ItemID<<": "<<vectorOfItemName[i] << std::endl;
                     strcpy(nameBuffer[ItemID],vectorOfItemName[i].c_str());
                     itemsNamePointer[ItemID] = nameBuffer[ItemID];
                     Scale[ItemID] = 1.0f;
@@ -163,7 +165,7 @@ void GUI::draw(Render* render) {
             }
         }
         mycameraOrbit = cameraOrbit;
-        std::cout << "mycameraOrbit" << mycameraOrbit << std::endl;
+        //std::cout << "mycameraOrbit" << mycameraOrbit << std::endl;
         static char ExportmeshFilename[64] = "a.obj";
         static char screenShotFilename[64] = "a.bmp";
         render->updateExpObj(0, "dummy");

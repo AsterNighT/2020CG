@@ -59,4 +59,3 @@ protected:
 	mat4x4 mViewMatrix;
 	mat4x4 mProjectionMatrix;
 };
-

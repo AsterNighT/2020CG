@@ -23,6 +23,7 @@ void MainScene::updateItemWorldMatrix(int ItemID, mat4 WorldMatrix) {
 }
 void MainScene::updateItemName(int ItemID, std::string ItemRename) {
 	items[ItemID]->name=ItemRename;
+	std::cout << "Items "<< ItemID<< " name "<<items[ItemID]->name  << std::endl;
 }
 void MainScene::updateLight(vec3 pos, vec3 tar, float strengh) {
 	light.UpdateLight(pos, tar, strengh);
@@ -33,7 +34,7 @@ void MainScene::updateExpObj(bool _fExpObj, std::string _meshFilename) {
 	meshFilename = _meshFilename;
 };
 std::vector<std::string> MainScene::ImportItems(std::string ImportMeshFilename) {
-	std::vector<Item*>vectorOfItem = Model::loadModel("9.obj");
+	std::vector<Item*>vectorOfItem = Model::loadModel(ImportMeshFilename);
 	std::cout << vectorOfItem.size() << std::endl;
 
 	Item* item;
