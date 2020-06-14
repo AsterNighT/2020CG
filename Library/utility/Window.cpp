@@ -56,7 +56,15 @@ int Window::initialize(int* argcp, char** argv) {
 }
 
 void Window::Control() {
-	// Move forward
+	/*
+	if (myGUI->isFreeViewpoint())
+		printf("Free to move!!!!!!!!!!!!\n");
+	else
+		printf("Can't move!!!!!!!!!\n");
+		*/
+
+	vec3 curPos = (render->getCameraPos());
+
 	vec3 LookAt = normalize(render->getCameraFront());
 	//printf("%.2f %.2f %.2f\n", LookAt.x, LookAt.y, LookAt.z);
 	float verticalAngle = asin(LookAt.y);
@@ -64,35 +72,66 @@ void Window::Control() {
 	if (LookAt.z != 0)
 		horizontalAngle = atan(LookAt.x / LookAt.z);
 	else
-		horizontalAngle = 3.1415926 / 2;
+		horizontalAngle = acos(0);
 	if (LookAt.z < 0)
-		horizontalAngle += 3.1415926;
+		horizontalAngle += acos(-1);
 
-	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
-		//position += direction * deltaTime * speed;
+	vec3 Right = vec3(
+		sin(horizontalAngle - acos(0)), // 3.14f / 2.0f),
+		0,
+		cos(horizontalAngle - acos(0)) //3.14f / 2.0f)
+	);
+
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+		curPos += PositionMoveSpeed * LookAt;
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+		curPos -= PositionMoveSpeed * LookAt;
+	}
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+		curPos -= PositionMoveSpeed * Right;
+		//curPos.x -= PositionMoveSpeed;
+	}
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+		curPos += PositionMoveSpeed * Right;
+		//curPos.x += PositionMoveSpeed;
+	}
+	if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
+		curPos.y += PositionMoveSpeed;
+	}
+	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+		curPos.y -= PositionMoveSpeed;
+	}
+
+
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS ) {
 		verticalAngle += AngleMoveSpeed;
 	}
-	// Move backward
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
 		verticalAngle -= AngleMoveSpeed;
-		//position -= direction * deltaTime * speed;
 	}
-	// Strafe right
 	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
 		horizontalAngle -= AngleMoveSpeed;
-		//position += right * deltaTime * speed;
 	}
-	// Strafe left
 	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
 		horizontalAngle += AngleMoveSpeed;
-		//position -= right * deltaTime * speed;
 	}
+
+	//printf("ver = %.2f\n", verticalAngle);
+
+	if (verticalAngle < -1.57)
+		verticalAngle = - 1.57;
+	if (verticalAngle > 1.57)
+		verticalAngle = 1.57;
+	// Use 1.57 instead of acos(0) to avoid problems caused by precision 
 
 	render->updateCameraFront(vec3(
 		cos(verticalAngle) * sin(horizontalAngle),
 		sin(verticalAngle),
 		cos(verticalAngle) * cos(horizontalAngle)
 	));
+	render->updateCameraPos(curPos);
+
 	//LookAt = render->getCameraFront();
 	//printf("%.2f %.2f %.2f\n\n", LookAt.x, LookAt.y, LookAt.z);
 }

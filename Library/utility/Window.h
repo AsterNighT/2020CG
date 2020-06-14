@@ -10,6 +10,7 @@
 #include "../../include/glm/glm.hpp"
 
 const float AngleMoveSpeed = 0.01;
+const float PositionMoveSpeed = 0.03;
 
 class Window {
 public:
