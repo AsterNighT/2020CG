@@ -65,7 +65,7 @@ std::vector<Item*> Model::loadModel(const std::string& filename, bool flipUVs){
 
 	UINT flags;
 
-	flags = aiProcess_Triangulate | aiProcess_ValidateDataStructure | aiProcess_FixInfacingNormals | aiProcess_GenNormals | aiProcess_JoinIdenticalVertices | aiProcess_PreTransformVertices | aiProcess_GenUVCoords | aiProcess_TransformUVCoords | aiProcess_CalcTangentSpace;
+	flags = aiProcess_Triangulate | aiProcess_ValidateDataStructure | aiProcess_FixInfacingNormals | aiProcess_GenNormals | aiProcess_GenUVCoords;
 
 	if (flipUVs) {
 		flags |= aiProcess_FlipUVs;
