@@ -31,8 +31,8 @@ std::string GUI::draw(Render* render) {
 
         ImGui::Begin("GUI!");                          // Create a window called "Hello, world!" and append into it.
 
-        ImGui::SameLine();
-        ImGui::Text("counter = %d", counter);
+        //ImGui::SameLine();
+        //ImGui::Text("counter = %d", counter);
 
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
@@ -169,7 +169,9 @@ std::string GUI::draw(Render* render) {
             ImGui::SameLine();
             if (ImGui::Button("ZoomToFit")) {
                     cameraOrbit = false;
-                    render->updateCameraPos(vec3(3, 3, 3));
+                    vec3 curPos = normalize(render->getCameraPos());
+                    curPos *= 3 * sqrt(3);
+                    render->updateCameraPos(curPos);
                     render->updateCameraLookAt(vec3(0, 0, 0));
                     render->updateCameraFOV(45.0);
             }
