@@ -3,6 +3,7 @@
 Item::Item() {
 	texture = nullptr;
 	mesh = nullptr;
+	specPower = 1.0f;
 	worldMatrix = glm::identity<mat4>();
 }
 

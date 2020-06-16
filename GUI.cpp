@@ -75,7 +75,7 @@ std::string GUI::draw(Render* render) {
         };
         static float rotation[MAXNumOfItems][3];
         static int textureMapID[MAXNumOfItems];
-        static float specPower[MAXNumOfItems];
+        static float specPower[MAXNumOfItems] = { 1.0f,1.0f,1.0f,1.0f };
         //static int textureMapID = 0;
         /*   imgui::listbox("listbox", &selecteditem, items, im_arraysize(items),1);
            imgui::text(items[selecteditem]);*/
@@ -142,6 +142,7 @@ std::string GUI::draw(Render* render) {
                     strcpy(nameBuffer[ItemID],vectorOfItemName[i].c_str());
                     itemsNamePointer[ItemID] = nameBuffer[ItemID];
                     Scale[ItemID] = 1.0f;
+                    specPower[ItemID] = 1.0f;
                 }
                 std::cout << vectorOfItemName.size();
                 std::cout << "current number of items: " << numberOfItems << std::endl;
