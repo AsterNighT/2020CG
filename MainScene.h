@@ -17,6 +17,7 @@ public:
 	void updateLight(vec3 pos, vec3 tar, float strengh) override;
 	void updateExpObj(bool fExpObj, std::string meshFilename) override;
 	void updateItemName(int ItemID, std::string ItemRename) override;
+	void updateItemSpecpower(int ItemID, float specPower) override;
 	std::vector<std::string> ImportItems(std::string InportMeshFilename) override;
 	std::string toObjFile();
 private:

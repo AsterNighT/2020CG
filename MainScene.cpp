@@ -25,6 +25,9 @@ void MainScene::updateItemName(int ItemID, std::string ItemRename) {
 	items[ItemID]->name=ItemRename;
 	std::cout << "Items "<< ItemID<< " name "<<items[ItemID]->name  << std::endl;
 }
+void MainScene::updateItemSpecpower(int ItemID, float specPower) {
+	items[ItemID]->specPower = specPower;
+}
 void MainScene::updateLight(vec3 pos, vec3 tar, float strengh) {
 	light.UpdateLight(pos, tar, strengh);
 };

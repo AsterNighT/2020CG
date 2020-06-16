@@ -70,7 +70,9 @@ void Render::updateCameraLookAt(vec3 pos) {
 void Render::updateCameraFOV(float fov) {
 	camera->SetFOV(fov);
 }
-
+void updateItemSpecpower(int ItemID, float Specpower) {
+	scene->updateItemSpecpower(ItemID, Specpower);
+}
 vec3 Render::getCameraPos() {
 	return camera->Position();
 }

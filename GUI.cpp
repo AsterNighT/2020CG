@@ -31,9 +31,6 @@ std::string GUI::draw(Render* render) {
 
         ImGui::Begin("GUI!");                          // Create a window called "Hello, world!" and append into it.
 
-        //ImGui::SameLine();
-        //ImGui::Text("counter = %d", counter);
-
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
         static float lightPos[3] = {0.0f, 1.0f, 3.0f};
@@ -56,7 +53,9 @@ std::string GUI::draw(Render* render) {
         render->updateLight(vec3(lightPos[0], lightPos[1], lightPos[2]), vec3(lightTarget[0], lightTarget[1], lightTarget[2]), lightIntensity);
         //static char* items[]{ "Item1","Item2","Item3","Item4","Item5","Item6","Item7","Item8","Item9" };
         static const int MAXNumOfItems = 100;
-        static char* itemsNamePointer[] = { "Item1","Item2","Item3","Item4","Item5","Item6","Item7","Item8","Item9" };
+        static char* itemsNamePointer[] = { "Item1","Item2","Item3","Item4","Item5","Item6","Item7","Item8","Item9","Item10",
+        "Item11","Item12","Item13","Item14","Item15","Item16","Item17","Item18","Item19" 
+        };
         
         static char nameBuffer[MAXNumOfItems][200];
         static int nameBufferID = 0;
@@ -76,6 +75,7 @@ std::string GUI::draw(Render* render) {
         };
         static float rotation[MAXNumOfItems][3];
         static int textureMapID[MAXNumOfItems];
+        static float specPower[MAXNumOfItems];
         //static int textureMapID = 0;
         /*   imgui::listbox("listbox", &selecteditem, items, im_arraysize(items),1);
            imgui::text(items[selecteditem]);*/
@@ -119,6 +119,8 @@ std::string GUI::draw(Render* render) {
             RotateMatrix= glm::rotate(RotateMatrix, glm::radians(rotation[selectedItem][2]), glm::vec3(0.0f, 0.0f, 1.0f));
             NewWorldMatrix = glm::scale(RotateMatrix, glm::vec3(Scale[selectedItem], Scale[selectedItem], Scale[selectedItem]));
             render->updateItemWorldMatrix(selectedItem, NewWorldMatrix);
+            ImGui::SliderFloat("specPower###specPower", &specPower[selectedItem], 1.0f, 50.0f);
+            render->updateItemSpecpower(selectedItem, specPower[selectedItem]);
         }
 
         static bool freeViewpoint = false;

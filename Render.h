@@ -17,10 +17,12 @@ public:
 	void updateItemWorldMatrix(int ItemID, mat4 WorldMatrix);
 	void updateLight(vec3 pos, vec3 tar, float strengh);
 	void updateItemName(int ItemID, std::string ItemRename);
+	void updateItemSpecpower(int ItemID, float Specpower);
 	void updateCameraPos(vec3 pos);
 	void updateCameraFront(vec3 pos);
 	void updateCameraLookAt(vec3 pos);
 	void updateCameraFOV(float fov);
+	
 	vec3 getCameraPos();
 	vec3 getCameraFront();
 	float getCameraFOV();

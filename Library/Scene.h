@@ -17,6 +17,7 @@ public:
 	virtual void updateLight(vec3 pos, vec3 tar, float strengh) = 0;
 	virtual void updateExpObj(bool fExpObj, std::string meshFilename) = 0;
 	virtual void updateItemName(int ItemID, std::string ItemRename) = 0;
+	virtual void updateItemSpecpower(int ItemID, float specPower) = 0;
 	virtual std::vector<std::string> ImportItems(std::string InportMeshFilename) = 0;
 protected:
 	std::vector<ShadePass*> mShaderPass;
