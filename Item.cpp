@@ -31,7 +31,7 @@ void Item::drawDepth() {
 void Item::configurate(ShadePass* shadePass) {
 	*(*shadePass)[std::string("worldMatrix")] << worldMatrix;
 	*(*shadePass)[std::string("ambientPower")] << 0.1f;
-	*(*shadePass)[std::string("specPower")] << 1.0f;
+	*(*shadePass)[std::string("specPower")] << specPower;
 }
 
 void Item::configurateDepth(ShadePass* shadePass) {
