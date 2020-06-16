@@ -9,7 +9,9 @@ public:
 	std::string name;
 	Texture* texture;
 	Mesh* mesh;
+	float specPower;
 	glm::mat4 worldMatrix;
+	
 	void draw();
 	void drawDepth();
 	void configurate(ShadePass* shadePass);
