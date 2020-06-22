@@ -2,9 +2,11 @@
 
 ## 实现功能
 
+基本要求：基本体素的建模表达，三维网格导入导出（实时动态实现），基本材质/纹理的显示编辑能力，物体的几何变换，光照模型，场景漫游，屏幕截取并保存。
 
+额外要求：NURBS曲面建模，光照模型添加实时阴影
 
-##交互说明
+## 交互说明
 
 本实验使用了IMGUI这一GUI工具实现了交互。
 
@@ -26,25 +28,27 @@
 
 首先通过listbox下拉菜单可以选取不同的物体进行编辑。首先可以对物体进行重命名，在文本框中输入新的名称后按下rename按键即可。然后可以对物体进行平移，不同的滑块对应不同的方向上的平移量。还可以对物体进行旋转操作，不同的滑块对应不同的轴向上的旋转量。同时下方的滑块还可以分别对物体进行scale变换，编辑不同的textureMap到物体上，还可以改变specpower（对应不同的材质）。
 
-###导入obj
+### 导入obj
 
 ![image-20200617145321163](pic/image-20200617145321163.png)
 
 在输入栏中输入要导入的obj，然后按下import按钮即可导入到场景中，若一个obj中有多个item则导入过来后也是多个item，item的名称也会对应导入到场景中。
 
-###调整相机
+### 调整相机
 
 ![image-20200617145653564](pic/image-20200617145653564.png)
 
 相机支持free viewpoint模式，orbit模式，和ZoomToFit。
 
-其中free viewpoint模式通过WSADZC来控制相机位置的上下左右前后的移动（pan），上下左右箭头来控制相机的朝向。然后鼠标滚轮实现zoom in，zoom out。因为在文本输入到时候需要使用wsadzc和上下左右箭头，所以为了避免冲突，在GUI中设置了如果展开导出导入菜单栏，则自动关闭free viewpoint模式，通过这种方式来解决冲突。
+其中free viewpoint模式通过WSADZC来控制相机位置的上下左右前后的移动（pan），上下左右箭头来控制相机的朝向。其中WASD均是相对目前朝向进行的平移，ZC为了和日常习惯保持相同，一直是沿着y轴进行上下平移，与朝向无关。鼠标滚轮实现zoom in，zoom out，在此时调整的是FOV，因此在滑动滚轮后会发现物体的透视发生一定程度的改变。
+
+因为在文本输入到时候需要使用WASCDZC和上下左右箭头，所以为了避免冲突，在GUI中设置了如果展开导出导入菜单栏，则自动关闭free viewpoint模式，通过这种方式来解决冲突。
 
 orbit模式是绕着场景中心进行orbit，为了避免冲突orbit模式开启后会自动关闭free viewpoint模式。
 
-ZoomToFit按键按下后会将画面缩放到适合的大小，使所有物体显示在屏幕中并且刚好充满屏幕。
+ZoomToFit按键按下后会将画面缩放到适合的大小，使所有物体显示在屏幕中并且刚好充满屏幕。且考虑到语义上的理解，ZoomToFit在实现时会在当前位置与场景中心径向调整距离以及镜头朝向，同时重置FOV到初始值。
 
-###导出
+### 导出
 
 ![image-20200617151859388](pic/image-20200617151859388.png)
 
@@ -52,14 +56,15 @@ ZoomToFit按键按下后会将画面缩放到适合的大小，使所有物体�
 
 输入要导出的文件名后，按下export按键即可导出文件。会将场景中的所有item都导出到obj。导出的obj还支持再导入，并且item的名字也是会跟个再导入回来。
 
-####导出屏幕（截屏）
+#### 导出屏幕（截屏）
 
-输入要导出的文件名后，按下export按键即可导出文件。我们的截屏经过了特殊处理，可以将imgui的菜单给隐蔽掉。
+输入要导出的文件名后，按下export按键即可导出文件。截屏时，通过控制到处像素的时间在下一帧场景绘制后，imgui绘制前，即可得到隐仓imgui菜单的效果。
 
 ## 小组分工
 
 - 王英豪 3180102062：基本体素建模，渲染流程，光照模型和实时阴影绘制，nurbs，三维网格导入和导出，几何变换，光源编辑，纹理渲染
-- 朱紫涵 3180102678: IMGUI及其与各个模块之间的交互，纹理编辑，基本几何变换。
+- 朱紫涵 3180102678：IMGUI及其与各个模块之间的交互，纹理编辑，基本几何变换。
+- 贺情怡 3180105438：控制相机位置的移动及镜头转动，屏幕截图的导出。
 
 ## 数据组织
 
@@ -204,7 +209,7 @@ Mesh* Mesh::createPrism() {
 }
 ```
 
-###nurbs
+### nurbs
 
 采用tinynurbs库对nurbs上的点进行求值与求导，将其转化为三角片元进行渲染，代码如下
 
@@ -239,7 +244,7 @@ mFaceCount(0), mIndices(), mVertexBuffer(), mIndexBuffer() {
 }
 ```
 
-###三维网格导入和导出
+### 三维网格导入和导出
 
 导入时为了解决多边形三角剖分和法线生成问题，使用assimp库导入
 
@@ -319,7 +324,7 @@ std::string Item::toObjFile(int& vertCount, int& texCoordCount, int& normalCount
 }
 ```
 
-###基本几何变换
+### 基本几何变换
 
 使用一个4x4的矩阵描述每个物体的变化，并传入shader
 
@@ -341,7 +346,170 @@ NewWorldMatrix = glm::scale(RotateMatrix, glm::vec3(Scale[selectedItem], Scale[s
 render->updateItemWorldMatrix(selectedItem, NewWorldMatrix);
 ```
 
-###材质、纹理显示和编辑
+### 场景漫游
+
+#### Zoom In/Out
+
+#### Pan
+
+通过当前的CameraPos和LookAt，将直角坐标系转化为球坐标，从而方便控制LookAt的改变。计算出当前视角的Right，方便左右的平移。
+
+```c++
+vec3 curPos = (render->getCameraPos());
+vec3 LookAt = normalize(render->getCameraFront());
+
+float verticalAngle = asin(LookAt.y);
+float horizontalAngle;
+if (LookAt.z != 0)
+	horizontalAngle = atan(LookAt.x / LookAt.z);
+else
+	horizontalAngle = acos(0);
+if (LookAt.z < 0)
+	horizontalAngle += acos(-1);
+
+vec3 Right = vec3(
+	sin(horizontalAngle - acos(0)),
+	0,
+	cos(horizontalAngle - acos(0))
+);
+
+if (isFreeViewpoint) {
+	glfwSetScrollCallback(window,ScrollCallback);
+
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+		curPos += PositionMoveSpeed * LookAt;
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+		curPos -= PositionMoveSpeed * LookAt;
+	}
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+		curPos -= PositionMoveSpeed * Right;
+	}
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+		curPos += PositionMoveSpeed * Right;
+	}
+	if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
+		curPos.y += PositionMoveSpeed;
+	}
+	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+		curPos.y -= PositionMoveSpeed;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS ) {
+		verticalAngle += AngleMoveSpeed;
+	}
+	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+		verticalAngle -= AngleMoveSpeed;
+	}
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+		horizontalAngle -= AngleMoveSpeed;
+	}
+	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
+		horizontalAngle += AngleMoveSpeed;
+	}
+}
+
+if (verticalAngle < -1.57)
+	verticalAngle = - 1.57;
+if (verticalAngle > 1.57)
+	verticalAngle = 1.57;
+// Use 1.57 instead of acos(0) to avoid problems caused by precision 
+
+render->updateCameraFront(vec3(
+	cos(verticalAngle) * sin(horizontalAngle),
+	sin(verticalAngle),
+	cos(verticalAngle) * cos(horizontalAngle)
+));
+render->updateCameraPos(curPos);
+```
+
+#### Orbit
+
+Orbit的实现内嵌在GUI.cpp中，通过勾选框的cameraOrbit变量来判断是否在Orbit，并利用球坐标来实现自动Orbit（虽然Orbit的实现效果很像是场景旋转）
+
+```c++
+if (cameraOrbit) {
+        freeViewpoint = false;
+        //printf("Orbiting\n");
+        angle2 += 0.01;
+        if (angle2 > 6.28)
+                angle2 -= 6.28;
+        render->updateCameraPos(vec3(dist * sin(angle1) * cos(angle2), dist * cos(angle1), dist * sin(angle1) * sin(angle2)));
+        render->updateCameraLookAt(vec3(0, 0, 0));
+}
+```
+
+#### Zoom To Fit
+
+Zoom To Fit也是内嵌在GUI.cpp中，通过ZoomToFit按钮来控制。在此时会解除对cameraOrbit的锁定。
+
+```c++
+if (ImGui::Button("ZoomToFit")) {
+        cameraOrbit = false;
+        vec3 curPos = normalize(render->getCameraPos());
+        curPos *= 3 * sqrt(3);
+        render->updateCameraPos(curPos);
+        render->updateCameraLookAt(vec3(0, 0, 0));
+        render->updateCameraFOV(45.0);
+}
+```
+
+### 屏幕截图并导出
+
+利用glReadPixels获取像素值，导出bmp图像，bmp图像的头按照定义赋值即可。
+
+```c++
+const size_t pitch = (width * 3 + 3) & ~3;
+const size_t len = pitch * height * sizeof(GLbyte);
+GLbyte* buffer = (GLbyte*)malloc(len);
+if (!buffer) {
+	printf("buffer alloc failed!\n");
+	return false;
+}
+
+glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+glReadPixels(0, 0, width, height, GL_BGR, GL_UNSIGNED_BYTE, buffer);
+
+FILE* file = fopen(filename, "wb");
+if (!file) {
+	printf("can't open %s\n", filename);
+	free(buffer);
+	return false;
+}
+
+BITMAPFILEHEADER file_header;
+BITMAPINFOHEADER info_header;
+
+file_header.bfType = (WORD)('B' | 'M' << 8); // Windows BMP file tag
+file_header.bfSize = len + 54;
+file_header.bfReserved1 = 0;
+file_header.bfReserved2 = 0;
+file_header.bfOffBits = 54;
+
+info_header.biSize = sizeof(BITMAPINFOHEADER);
+info_header.biWidth = width;
+info_header.biHeight = height;
+info_header.biPlanes = 1;
+info_header.biBitCount = 24;
+info_header.biCompression = 0;
+info_header.biSizeImage = len;
+
+info_header.biXPelsPerMeter = 0;
+info_header.biYPelsPerMeter = 0;
+info_header.biClrUsed = 0;
+info_header.biClrImportant = 0;
+
+fwrite(&file_header, sizeof(file_header), 1, file);
+fwrite(&info_header, sizeof(info_header), 1, file);
+fwrite(buffer, len, 1, file);
+fclose(file);
+
+free(buffer);
+```
+
+
+
+### 材质、纹理显示和编辑
 
 ####	纹理渲染
 
@@ -391,7 +559,7 @@ for (int i = 1; i <= 40; i++) {
 
 用户在GUI中更新物体的specpower后，GUI通过render，scene更新到对应Item中。
 
-###光源编辑
+### 光源编辑
 
 IMGUI调整上述光源信息中的各项参数，通过render和scene传入shader
 
@@ -399,7 +567,7 @@ IMGUI调整上述光源信息中的各项参数，通过render和scene传入shad
 render->updateLight(vec3(lightPos[0], lightPos[1], lightPos[2]), vec3(lightTarget[0], lightTarget[1], lightTarget[2]), lightIntensity);
 ```
 
-###渲染流程
+### 渲染流程
 
 使用可编程渲染管线进行绘制，分为两步，第一次渲染得到光源空间深度信息，第二次渲染得到最终图像。
 
@@ -425,7 +593,7 @@ void MainScene::draw() {
 }
 ```
 
-###光照模型
+### 光照模型
 
 采用phong光照模型，具体代码如下
 
@@ -449,7 +617,7 @@ vec3 calcAmbientColor(){
 }
 ```
 
-###实时阴影
+### 实时阴影
 
 采用shadow map实现，第一次渲染得到深度信息
 
